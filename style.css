@@ -20,6 +20,7 @@ body {
 #header_navbar{
 width: 100%;
 height: 100px;
+
 }
 #header_navbar img{
         max-height: 150px;
@@ -28,6 +29,11 @@ height: 100px;
 .navbar {
     background-color: rgba(0, 0, 0, 0);
     height: 100px;
+}
+#navbarMenuHeroA{
+    background-color: rgba(23, 110, 110, 0);
+    display: flex;
+    justify-content: flex-end;
 }
 
 /* CSS de Menu */
