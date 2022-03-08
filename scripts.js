@@ -139,7 +139,7 @@ productList.forEach(product => {
     suma_busca.addEventListener('click', (e)=> {
          let sumatoria = document.getElementById(product.id)
         suma_cant++ 
-        sumatoria.innerHTML = `<input> ${suma_cant} </input>`;
+        sumatoria.innerHTML = suma_cant;
     // alert(e.target)
     }) ;
 });
