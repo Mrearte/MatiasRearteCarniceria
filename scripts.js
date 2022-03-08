@@ -1,4 +1,5 @@
-function Product(name, description, image, stock, precio, category) {
+function Product(id, name, description, image, stock, precio, category) {
+    this.id = id
     this.name = name
     this.description = description
     this.image = image
@@ -7,11 +8,11 @@ function Product(name, description, image, stock, precio, category) {
     this.category = category
 }
 
-const Product1 = new Product("Carne Picada", "Carne picada de nuestra carniceria", "menu-cart/carnepicada.jpg", 100, 50, "Res");
-const Product2 = new Product("Pollo", "De nuestra granja el mejor pollo", "menu-cart/pollo.jpg", 100, 100, "Granja");
-const Product3 = new Product("Asado", "Tira de asado de nuestra carniceria", "menu-cart/asado.jpg", 100, 75, "Res");
-const Product4 = new Product("Nalga", "nalga de nuestra carniceria", "menu-cart/nalga.jpg", 100, 300, "Res");
-const Product5 = new Product("Chorizo", "chorizos....", "menu-cart/chori.jpg", 100, 300, "Embutidos");
+const Product1 = new Product(0,"Carne Picada", "Carne picada de nuestra carniceria", "menu-cart/carnepicada.jpg", 100, 50, "Res");
+const Product2 = new Product(1,"Pollo", "De nuestra granja el mejor pollo", "menu-cart/pollo.jpg", 100, 100, "Granja");
+const Product3 = new Product(2,"Asado", "Tira de asado de nuestra carniceria", "menu-cart/asado.jpg", 100, 75, "Res");
+const Product4 = new Product(3,"Nalga", "nalga de nuestra carniceria", "menu-cart/nalga.jpg", 100, 300, "Res");
+const Product5 = new Product(4,"Chorizo", "chorizos....", "menu-cart/chori.jpg", 100, 300, "Embutidos");
 
 const productList = [Product1, Product2, Product3, Product4,Product5];
 
@@ -117,14 +118,42 @@ function menu_cart_dinamico() {
                 <h3 class='subtitle is-size-6'>${producto.description}​</h3>
                 <p> Precio por kg: ${producto.precio}</p>
                 <div class='has-text-centered'>
-                <button class='button'  >Agregar</button>
+                <button class='button btn-dsp-agregar' class = 'Add'>Agregar</button>
                 </div>
-                <div class = 'has-text-centered btn-dsp-agregar' id = 'agrega_btn'><button> - </button> <p>100</p> <button > + </button> </div>
+                <div class = 'has-text-centered ' >
+                    <button> - </button> 
+                    <input  class= 'Cant' value = 0>
+                    </input> 
+                    <button id =  '${producto.id}' > + </button> 
+                </div>
             </div>`;
         // document.body.appendChild(contenedor);
         document.getElementById("menu_cart").appendChild(contenedor)
+        // habilitabtn();
     }
 }
+function suma_btn(){
+    let suma_cant = 0;
+productList.forEach(product => {
+    let suma_busca = document.getElementById(product.id) 
+    suma_busca.addEventListener('click', (e)=> {
+         let sumatoria = document.getElementById(product.id)
+        suma_cant++ 
+        sumatoria.innerHTML = `<input> ${suma_cant} </input>`;
+    // alert(e.target)
+    }) ;
+});
+
+}
+
+// function agrega_num(){
+//     suma_cant++
+//     console.log(suma_busca);
+//     console.log(suma_cant);
+
+// }
+// }
+
 
 
 
@@ -182,14 +211,21 @@ function mayorprecio() {
 
 menu_cart_dinamico();
 
-
-let agregabutton = document.getElementById("agrega_btn"); 
-agregabutton.addEventListener("click",agregacant);
-function agregacant(){
-        agregabutton.classList.add("agrega_button");
-    console.log("holaaa");
-}
-
+suma_btn();
+// Al hacer click + se debera sumar y despues agregar el buton agregar
+// function habilitabtn(){
+//         let sum = 0; 
+// let agregabutton = document.getElementsByClassName("agrega_btn"); 
+// agregabutton.addEventListener("click",agregacant);
+// function agregacant(){
+//         sum++;
+//         let agbtn = document.getElementsByClassName('Add');
+//         agbtn.classList.remove("btn-dsp-agregar");
+//         let addcant = document.getElementsByClassName('Cant');
+//         addcant.innerHTML = `${sum}`;
+//         console.log(sum);
+// }
+// }
 
 // Inicio de aplicacion 
 //let Menu = parseInt(prompt("Menu \n 1-Cliente \n 2-Usuario"));
