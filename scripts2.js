@@ -121,11 +121,10 @@ function menu_cart_dinamico() {
                 <button class='button btn-dsp-agregar' class = 'Add'>Agregar</button>
                 </div>
                 <div class = 'has-text-centered ' >
-                    <button> - </button>
-                    <!--Le asigno id unica, mezclo texto con $llave para que todos los inputs y todos los button tenga id diferente--> 
-                    <input  id="Cant${producto.id}" value = 0>
+                    <button> - </button> 
+                    <input  class= 'Cant' value = 0>
                     </input> 
-                    <button id ='btnSumar${producto.id}' > + </button> 
+                    <button id =  '${producto.id}' > + </button> 
                 </div>
             </div>`;
         // document.body.appendChild(contenedor);
@@ -133,37 +132,39 @@ function menu_cart_dinamico() {
         // habilitabtn();
     }
 }
+
+
 function suma_btn(){
-//muy bien el forEach, aca estás recorriendo todo tu array
-productList.forEach(product => {
-    //Capturo el btn sumar id de cada elemento
-    let btnSumar = document.getElementById(`btnSumar${product.id}`)
-    //asigno evento a ese boton
-    btnSumar.addEventListener('click', (e)=> {
-        //sumatoria es igual al input, que arranca el value = 0 
-        let sumatoria = document.getElementById(`Cant${product.id}`)
-        //me aseguro que funciona el evento (desp borrar)
-        console.log("funciona");
-        //no hace falta usar el sumaCant, le pongo ++ al .value y listo
-        sumatoria.value++
-    // alert(e.target)
-    }) ;
-});
-
-}
-//Ojo que te marca error en línea 241! Menu no está declarado
-
-
-
-// function agrega_num(){
-//     suma_cant++
-//     console.log(suma_busca);
-//     console.log(suma_cant);
+    //muy bien el forEach, aca estás recorriendo todo tu array
+    productList.forEach(product => {
+        //Capturo el btn sumar id de cada elemento
+        let btnSumar = document.getElementById(`btnSumar ${product.id}`)
+        //asigno evento a ese boton
+        btnSumar.addEventListener('click', (e)=> {
+            //sumatoria es igual al input, que arranca el value = 0 
+            let sumatoria = document.getElementById(`Cant ${product.id}`)
+            //me aseguro que funciona el evento (desp borrar)
+            console.log("funciona");
+            //no hace falta usar el sumaCant, le pongo ++ al .value y listo
+            sumatoria.value++
+        // alert(e.target)
+        }) ;
+    });
+    
+    }
+// function suma_btn(){
+//     let suma_cant = 0;
+// productList.forEach(product => {
+//     let suma_busca = document.getElementById(product.id) 
+//     suma_busca.addEventListener('click', (e)=> {
+//          let sumatoria = document.getElementById(product.id)
+//         suma_cant++ 
+//         sumatoria.innerHTML = suma_cant;
+//     // alert(e.target)
+//     }) ;
+// });
 
 // }
-// }
-
-
 
 
 
