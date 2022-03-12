@@ -1,3 +1,86 @@
+
+    let bienvenida = document.getElementsByTagName("body");
+            //Definimos el innerHTML del eboxmialemento con una plantilla de texto
+        bienvenida.innerHTML = ` `;
+        document.body.append(bienvenida);
+        
+        let login =  document.createElement("div") 
+        document.getElementById("Login");
+        login.innerHTML =
+            `
+            <div class="pantallaLogin">
+            <h1>Bienvenidos a la Carniceria</h1>
+            <img src="512.png" alt="">
+            <form id="formulario">
+                <select name="country">
+                    <option value="Usuario">Usuario</option>
+                    <option value="Cliente">Cliente</option>
+                </select>
+            <input type="submit" value="Enviar">
+            </form> 
+            </div>
+            `;
+        document.getElementById("Login").appendChild(login);
+function llogin()
+{
+    let miFormulario = document.getElementById("formulario");
+    miFormulario.addEventListener("submit", Bienvenida_form);
+
+
+    function Bienvenida_form(e)
+    {
+        //Cancelamos el comportamiento del evento
+        e.preventDefault();
+        //Obtenemos el elemento desde el cual se disparó el evento
+        let formulario_bienvenida = e.target
+        // Validacion usuario o cliente
+        if (formulario_bienvenida.children[0].value == "Usuario" ) 
+        {
+            let elimina = document.getElementById('Login');
+            elimina.classList.add('is-hidden');
+            let remo = document.getElementById('User')
+            remo.classList.remove('is-hidden')
+            ABM();
+
+
+        } else 
+        {
+            let elimina = document.getElementById('Login');
+            elimina.classList.add('is-hidden');
+            let remo = document.getElementById('webcomplete')
+            remo.classList.remove('is-hidden')
+            MenuCategoria();
+            menu_cart_dinamico();
+            suma_btn();
+            resta_btn();
+
+        console.log("ho,a chiche");  
+        }
+    }    
+}
+
+llogin();
+
+// Bienvenida_form();
+
+
+function MenuCategoria() {
+    // let cat = document.getElementById("menu_navbar");
+    for (const categ of categoryList) {
+        let contcat = document.createElement("a")
+        contcat.setAttribute("class","Hoverstyle navbar-item" );
+        contcat.innerHTML = `
+                <span>${categ.name}</span>
+        `
+        document.getElementById("navbarcategory").appendChild(contcat);
+    }
+}
+
+
+
+
+
+
 function Product(id, name, description, image, stock, precio, category) {
     this.id = id
     this.name = name
@@ -91,7 +174,7 @@ function MenuCategoria() {
     // let cat = document.getElementById("menu_navbar");
     for (const categ of categoryList) {
         let contcat = document.createElement("a")
-        contcat.setAttribute("class","Hoverstyle navbar-item" );
+        contcat.setAttribute("class","Hoverstyle navbar-item " );
         contcat.innerHTML = `
                 <span>${categ.name}</span>
         `
@@ -99,7 +182,6 @@ function MenuCategoria() {
     }
 }
 
-MenuCategoria();
 
 
 // menu cart dinamico
@@ -121,7 +203,7 @@ function menu_cart_dinamico() {
                 <button class='button btn-dsp-agregar' class = 'Add'>Agregar</button>
                 </div>
                 <div class = 'has-text-centered ' >
-                    <button> - </button>
+                    <button id ='btnResta${producto.id}'  > - </button>
                     <!--Le asigno id unica, mezclo texto con $llave para que todos los inputs y todos los button tenga id diferente--> 
                     <input  id="Cant${producto.id}" value = 0>
                     </input> 
@@ -145,25 +227,31 @@ productList.forEach(product => {
         //me aseguro que funciona el evento (desp borrar)
         console.log("funciona");
         //no hace falta usar el sumaCant, le pongo ++ al .value y listo
-        sumatoria.value++
+        return sumatoria.value++
     // alert(e.target)
     }) ;
 });
-
 }
-//Ojo que te marca error en línea 241! Menu no está declarado
 
 
 
-// function agrega_num(){
-//     suma_cant++
-//     console.log(suma_busca);
-//     console.log(suma_cant);
-
-// }
-// }
-
-
+function resta_btn(){
+//muy bien el forEach, aca estás recorriendo todo tu array
+productList.forEach(product => {
+    //Capturo el btn sumar id de cada elemento
+    let btnResta = document.getElementById(`btnResta${product.id}`)
+    //asigno evento a ese boton
+    btnResta.addEventListener('click', (e)=> {
+        //sumatoria es igual al input, que arranca el value = 0 
+        let sumatoriaa = document.getElementById(`Cant${product.id}`)
+        //me aseguro que funciona el evento (desp borrar)
+        console.log("resta");
+        //no hace falta usar el sumaCant, le pongo ++ al .value y listo
+        sumatoriaa.value--
+    // alert(e.target)
+    }) ;
+});
+}
 
 
 
@@ -218,26 +306,169 @@ function mayorprecio() {
 }
 
 
-menu_cart_dinamico();
 
-suma_btn();
-// Al hacer click + se debera sumar y despues agregar el buton agregar
-// function habilitabtn(){
-//         let sum = 0; 
-// let agregabutton = document.getElementsByClassName("agrega_btn"); 
-// agregabutton.addEventListener("click",agregacant);
-// function agregacant(){
-//         sum++;
-//         let agbtn = document.getElementsByClassName('Add');
-//         agbtn.classList.remove("btn-dsp-agregar");
-//         let addcant = document.getElementsByClassName('Cant');
-//         addcant.innerHTML = `${sum}`;
-//         console.log(sum);
-// }
-// }
 
-// Inicio de aplicacion 
-//let Menu = parseInt(prompt("Menu \n 1-Cliente \n 2-Usuario"));
+
+function ABM() {
+    let abm = document.getElementById("User");
+    abm.innerHTML = `<div class="field is-horizontal">
+    <div class="field-label is-normal">
+      <label class="label">From</label>
+    </div>
+    <div class="field-body">
+      <div class="field">
+        <p class="control is-expanded has-icons-left">
+          <input class="input" type="text" placeholder="Name">
+          <span class="icon is-small is-left">
+            <i class="fas fa-user"></i>
+          </span>
+        </p>
+      </div>
+      <div class="field">
+        <p class="control is-expanded has-icons-left has-icons-right">
+          <input class="input is-success" type="email" placeholder="Email" value="alex@smith.com">
+          <span class="icon is-small is-left">
+            <i class="fas fa-envelope"></i>
+          </span>
+          <span class="icon is-small is-right">
+            <i class="fas fa-check"></i>
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="field is-horizontal">
+    <div class="field-label"></div>
+    <div class="field-body">
+      <div class="field is-expanded">
+        <div class="field has-addons">
+          <p class="control">
+            <a class="button is-static">
+              +44
+            </a>
+          </p>
+          <p class="control is-expanded">
+            <input class="input" type="tel" placeholder="Your phone number">
+          </p>
+        </div>
+        <p class="help">Do not enter the first zero</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="field is-horizontal">
+    <div class="field-label is-normal">
+      <label class="label">Department</label>
+    </div>
+    <div class="field-body">
+      <div class="field is-narrow">
+        <div class="control">
+          <div class="select is-fullwidth">
+            <select>
+              <option>Business development</option>
+              <option>Marketing</option>
+              <option>Sales</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="field is-horizontal">
+    <div class="field-label">
+      <label class="label">Already a member?</label>
+    </div>
+    <div class="field-body">
+      <div class="field is-narrow">
+        <div class="control">
+          <label class="radio">
+            <input type="radio" name="member">
+            Yes
+          </label>
+          <label class="radio">
+            <input type="radio" name="member">
+            No
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="field is-horizontal">
+    <div class="field-label is-normal">
+      <label class="label">Subject</label>
+    </div>
+    <div class="field-body">
+      <div class="field">
+        <div class="control">
+          <input class="input is-danger" type="text" placeholder="e.g. Partnership opportunity">
+        </div>
+        <p class="help is-danger">
+          This field is required
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="field is-horizontal">
+    <div class="field-label is-normal">
+      <label class="label">Question</label>
+    </div>
+    <div class="field-body">
+      <div class="field">
+        <div class="control">
+          <textarea class="textarea" placeholder="Explain how we can help you"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="field is-horizontal">
+    <div class="field-label">
+      <!-- Left empty for spacing -->
+    </div>
+    <div class="field-body">
+      <div class="field">
+        <div class="control">
+          <button class="button is-primary">
+            Send message
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>`
+    // for (const producto of productList) {
+    //     let contenedor = document.createElement("div");
+    //     // contenedor.setAttribute(id,id);
+    //     contenedor.setAttribute("class", "column is-3 mx-2 mb-1 elimina");
+    //     //Definimos el innerHTML del eboxmialemento con una plantilla de texto
+    //     contenedor.innerHTML =
+    //         `
+    //         <div class='box boxmia'>
+    //             <img src='${producto.image}' alt='' style='opacity:1;'>
+    //             <h2 class='title is-size-5'>${producto.name}</h2>
+    //             <h3 class='subtitle is-size-6'>${producto.description}​</h3>
+    //             <p> Precio por kg: ${producto.precio}</p>
+    //             <div class='has-text-centered'>
+    //             <button class='button btn-dsp-agregar' class = 'Add'>Agregar</button>
+    //             </div>
+    //             <div class = 'has-text-centered ' >
+    //                 <button id ='btnResta${producto.id}'  > - </button>
+    //                 <!--Le asigno id unica, mezclo texto con $llave para que todos los inputs y todos los button tenga id diferente--> 
+    //                 <input  id="Cant${producto.id}" value = 0>
+    //                 </input> 
+    //                 <button id ='btnSumar${producto.id}' > + </button> 
+    //             </div>
+    //         </div>`;
+    //     // document.body.appendChild(contenedor);
+    //     document.getElementById("menu_cart").appendChild(contenedor)
+    //     // habilitabtn();
+    // }
+}
+
+
 
 
 

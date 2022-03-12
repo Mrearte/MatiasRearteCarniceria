@@ -8,6 +8,21 @@ body {
 
 }
 
+.hide{
+    display: none;
+}
+#Login{
+    width: 100%;
+}
+.pantallaLogin{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
 
 #webcomplete{
     display: flex;
