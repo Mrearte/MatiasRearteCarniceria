@@ -19,8 +19,22 @@
   <div id="Login">
 
   </div>
-  <div id="User" class="is-hidden">
-    <div> </div>
+  <div id="User" class="is-hidden is-centered" >
+    <form action="">
+        <label for="">Selecciones categoria</label>
+        <div class="select">
+          <select id="categ">
+
+          </select>
+        </div>
+
+
+    </form>
+  
+  
+  </div>
+    <div id = "Baja"> </div>
+    <div id = "Modificacion"> </div>
   </div>
   <div id="webcomplete" class="Client is-hidden">
     <div id="header_navbar" class="primer_nav ">
@@ -28,20 +42,15 @@
         <div class="navbar-brand">
           <a class="navbar-item image "><img class="is-rounded" src="512.png" alt="Logo"></a>
         </div>
-        <div id="navbarMenuHeroA" class="navbar-menu">
-          <div class="navbar-end is-pulled-right">
-            <a class="navbar-item">
-              Mi cuenta
+        <div id="navbarMenuHeroA" class="navbar-menu">          
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link" >
+              Carrito
             </a>
-            <a class="navbar-item">
-              <span> Mi carrito
-              </span>
-            </a>
-            <span class="navbar-item">
-              <a id="buttonR" class="button is-primary is-inverted">
-                <span>Registrate</span>
-              </a>
-            </span>
+    
+            <div class="navbar-dropdown" id="cart">
+
+            </div>
           </div>
         </div>
       </nav>
