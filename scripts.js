@@ -16,10 +16,12 @@ login.innerHTML =
                     <option value="Usuario">Usuario</option>
                     <option value="Cliente">Cliente</option>
                 </select>
-            <input type="submit" value="Enviar">
+            <input type="submit">
             </form> 
             </div>
             `;
+
+            
 document.getElementById("Login").appendChild(login);
 function llogin() {
   let miFormulario = document.getElementById("formulario");
@@ -307,18 +309,56 @@ function resta_btn() {
 
 
 
-function Alta() {
-  let abm = document.getElementById("categ");
-for (const cat of categoryList){
-  let insertaCat = document.createElement("option");
-  insertaCat.innerHTML = `${cat.name}`
-  document.getElementById('categ').appendChild(insertaCat)
-} 
+function listaCategoria() {
+    let abm = document.getElementById("categ");
+  for (const cat of categoryList){
+    let insertaCat = document.createElement("option");
+    insertaCat.innerHTML = `${cat.name}`
+    document.getElementById('categ').appendChild(insertaCat)
+  } 
 }
 
+function Alta(){
+  listaCategoria();
+  let insertCuerpoAlta = document.createElement("div");
+  insertCuerpoAlta.innerHTML = `
+    <label> Ingrese el nombre del producto <label> 
+    <input class="input is-danger" type="text" placeholder="Ingrese nombre producto" value="">
 
+    <label> Ingrese la descripcion del producto <label> 
+    <input class="input is-danger" type="text" placeholder="Descripcion" value="">
 
-// Filtro lateral
+    
+    <label> Ingrese imagen <label> 
+    <input class="input is-danger" type="text" placeholder="imagen url" value="">
+    
+    <label> Ingrese precio de  producto <label> 
+    <input class="input is-danger" type="text" placeholder="precio" value="">
+    
+    <label> Ingrese stock <label> 
+    <input class="input is-danger" type="text" placeholder="stock" value="">
+
+    <div class="control">
+    <button class="button is-link" id = "pruebaSub">Submit</button>
+  </div>
+  
+  `;
+  document.getElementById('Altatexto').appendChild(insertCuerpoAlta);
+
+  submitProductoNuevo()
+}
+
+function submitProductoNuevo(){
+
+let registraAlta = document.getElementById('pruebaSub');
+  registraAlta.addEventListener('submit' ,  (e) => {
+    e.preventDefault();
+    let sub = document.getElementById('formAlta');
+    console.log(sub);
+  } )
+}
+
+  // Filtro lateral
 function menorprecio() {
   //Ordena por mayor precio
   let boton = document.getElementById("menorprecio")
