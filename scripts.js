@@ -1,6 +1,11 @@
 
+
+
+//#region Funciones de Pantalla principal
+
+function pantallPrincipal() {
 let bienvenida = document.getElementsByTagName("body");
-//Definimos el innerHTML del eboxmialemento con una plantilla de texto
+//Definimos el innerHTML con una plantilla de texto
 bienvenida.innerHTML = ` `;
 document.body.append(bienvenida);
 
@@ -8,10 +13,10 @@ let login = document.createElement("div")
 document.getElementById("Login");
 login.innerHTML =
   `
-            <div class="pantallaLogin">
+            <div class="pantallaLogin" id = "formulario">
             <h1>Bienvenidos a la Carniceria</h1>
             <img src="512.png" alt="">
-            <form id="formulario">
+            <form>
                 <select name="country">
                     <option value="Usuario">Usuario</option>
                     <option value="Cliente">Cliente</option>
@@ -23,16 +28,19 @@ login.innerHTML =
 
             
 document.getElementById("Login").appendChild(login);
+}
+
+
 function llogin() {
+  pantallPrincipal() ;
   let miFormulario = document.getElementById("formulario");
   miFormulario.addEventListener("submit", Bienvenida_form);
-
-
   function Bienvenida_form(e) {
     //Cancelamos el comportamiento del evento
     e.preventDefault();
     //Obtenemos el elemento desde el cual se disparó el evento
-    let formulario_bienvenida = e.target
+    let formulario_bienvenida = e.target;
+    console.log(formulario_bienvenida);
     // Validacion usuario o cliente
     if (formulario_bienvenida.children[0].value == "Usuario") {
       let elimina = document.getElementById('Login');
@@ -40,8 +48,8 @@ function llogin() {
       let remo = document.getElementById('User')
       remo.classList.remove('is-hidden')
       Alta();
-
-
+      listaCategoria();
+      submitProductoNuevo()
     } else {
       let elimina = document.getElementById('Login');
       elimina.classList.add('is-hidden');
@@ -58,8 +66,8 @@ function llogin() {
   }
 }
 
-llogin();
 
+//#endregion
 
 
 let carrit = [];
@@ -101,17 +109,6 @@ function muestraCarrito() {
   });
   }
 }
-//option 2
-// // let buscacart = document.getElementById("menu_cart");
-//   for (const carrito of carrit) {
-//     let contenedores = document.createElement("div");
-//     // contenedor.setAttribute(id,id);
-//     contenedores.setAttribute("class", "column is-3 mx-2 mb-1 elimina");
-//     //Definimos el innerHTML del eboxmialemento con una plantilla de texto
-//     contenedores.innerHTML = `<p> ${carrito.idProduct} </p>`
-//     document.getElementById("cart").appendChild(contenedores);
-//   } 
-// }
 
 function MenuCategoria() {
   // let cat = document.getElementById("menu_navbar");
@@ -124,6 +121,7 @@ function MenuCategoria() {
     document.getElementById("cart").appendChild(contcat);
   }
 }
+
 
 
 
@@ -222,8 +220,6 @@ function consultaNombreProducto(nombre) {
 
 
 
-
-
 function MenuCategoria() {
   // let cat = document.getElementById("menu_navbar");
   for (const categ of categoryList) {
@@ -241,7 +237,8 @@ function MenuCategoria() {
 // menu cart dinamico
 function menu_cart_dinamico() {
   let li = document.getElementById("menu_cart");
-  for (const producto of productList) {
+  let newListProduct = JSON.parse(localStorage.getItem("nuevolistado"));
+  for (const producto of newListProduct) {
     let contenedor = document.createElement("div");
     // contenedor.setAttribute(id,id);
     contenedor.setAttribute("class", "column is-3 mx-2 mb-1 elimina");
@@ -319,42 +316,55 @@ function listaCategoria() {
 }
 
 function Alta(){
-  listaCategoria();
   let insertCuerpoAlta = document.createElement("div");
+  insertCuerpoAlta.setAttribute("id", "pruebaSub" );
   insertCuerpoAlta.innerHTML = `
-    <label> Ingrese el nombre del producto <label> 
-    <input class="input is-danger" type="text" placeholder="Ingrese nombre producto" value="">
+    <label> Ingrese el nombre del producto </label> 
+    <input class="input is-danger" type="text" placeholder="Ingrese nombre producto" id = "nameAlta" value="">
 
-    <label> Ingrese la descripcion del producto <label> 
-    <input class="input is-danger" type="text" placeholder="Descripcion" value="">
+    <label> Ingrese la descripcion del producto </label> 
+    <input class="input is-danger" type="text" placeholder="Descripcion" id = "descriptionAlta" value="">
 
     
-    <label> Ingrese imagen <label> 
-    <input class="input is-danger" type="text" placeholder="imagen url" value="">
+    <label> Ingrese imagen </label> 
+    <input class="input is-danger" type="text" placeholder="imagen url" id = "imageAlta" value="">
     
-    <label> Ingrese precio de  producto <label> 
-    <input class="input is-danger" type="text" placeholder="precio" value="">
+    <label> Ingrese precio de  producto </label> 
+    <input class="input is-danger" type="text" placeholder="precio" id = "priceAlta" value="">
     
-    <label> Ingrese stock <label> 
-    <input class="input is-danger" type="text" placeholder="stock" value="">
+    <label> Ingrese stock </label> 
+    <input class="input is-danger" type="text" placeholder="stock" id = "stockAlta" value="">
 
     <div class="control">
-    <button class="button is-link" id = "pruebaSub">Submit</button>
+    <button class="button is-link" id = "btnSubmitconClick" >Submit</button>
   </div>
   
   `;
   document.getElementById('Altatexto').appendChild(insertCuerpoAlta);
 
-  submitProductoNuevo()
 }
 
 function submitProductoNuevo(){
 
-let registraAlta = document.getElementById('pruebaSub');
-  registraAlta.addEventListener('submit' ,  (e) => {
-    e.preventDefault();
-    let sub = document.getElementById('formAlta');
-    console.log(sub);
+let registraAlta = document.getElementById('btnSubmitconClick');
+  registraAlta.addEventListener('click' ,  (e) => {
+        //Cancelamos el comportamiento del evento
+        e.preventDefault();
+        //Obtenemos el elemento desde el cual se disparó el evento
+        let id = productList.length;
+        // let form_Alta = e.target;
+        let nombreAlta = document.getElementById('nameAlta');
+        let descriptionAlta = document.getElementById('descriptionAlta');
+        let imageAlta = document.getElementById('imageAlta');
+        let priceAlta = document.getElementById('priceAlta') ;
+        let stockAlta = document.getElementById('stockAlta')
+        let productoAlta = new Product(id , nombreAlta.value, descriptionAlta.value, imageAlta.value, priceAlta.value, stockAlta.value);
+        productList.push(productoAlta);
+        console.log(productList)
+        const JSONListaprod = JSON.stringify(productList);
+        localStorage.setItem("nuevolistado",JSONListaprod)
+        alert("Creado con exito!")
+        let sub = document.getElementById('formAlta');
   } )
 }
 
@@ -410,6 +420,8 @@ function mayorprecio() {
 
 
 
+
+llogin(); 
 
 
 
