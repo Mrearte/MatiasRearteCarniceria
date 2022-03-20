@@ -317,7 +317,7 @@ function submitProductoNuevo() {
   registraAlta.addEventListener('click', (e) => {
 
 
-    
+
     //Cancelamos el comportamiento del evento
     e.preventDefault();
     //Obtenemos el elemento desde el cual se disparó el evento
@@ -338,8 +338,8 @@ function submitProductoNuevo() {
       text: 'Se agrego el producto a la lista de productos!',
       icon: 'success',
       confirmButtonText: 'Cool'
-  })
-  
+    })
+
     let sub = document.getElementById('formAlta');
   })
 }
@@ -419,22 +419,34 @@ function NuevaModificacion(){
 
 
 */
-function eliminaproductos() {
+function eliminaproductos() 
+{
   IsStoraged = JSON.parse(localStorage.getItem("nuevolistado"));
-  if (IsStoraged != undefined) {
-    let muestraPRoductaModificar = document.getElementById('selecttodele');
-    for (const storage of IsStoraged) {
-      let muestraStorage = document.createElement("option");
-      muestraStorage.setAttribute("value", `${storage.id}`);
-      muestraStorage.innerHTML = `<span id = "valuestorage">${storage.name} </span>`
-      muestraPRoductaModificar.appendChild(muestraStorage);
-    }
-    let showProductsToModify = document.getElementById(`selecttodele`);
-    showProductsToModify.addEventListener('click', (muestraIS) => {
-      let idValue = muestraIS.target.value
-      let insertaModificacion = document.getElementById('eliminaObjeto')
-      insertaModificacion.innerHTML = `
-          <div id = 'idStorageToModify'			>
+
+  IsStoraged != undefined ? eliminaStorage(IsStoraged) : eliminaListProductsObj(IsStoraged);
+}
+
+
+
+
+
+function eliminaStorage(IsStoraged) 
+{
+  let muestraPRoductaModificar = document.getElementById('selecttodele');
+  for (const storage of IsStoraged) 
+  {
+    let muestraStorage = document.createElement("option");
+    muestraStorage.setAttribute("value", `${storage.id}`);
+    muestraStorage.innerHTML = `<span id = "valuestorage">${storage.name} </span>`
+    muestraPRoductaModificar.appendChild(muestraStorage);
+  }
+  let showProductsToModify = document.getElementById(`selecttodele`);
+  showProductsToModify.addEventListener('click', (muestraIS) => 
+  {
+    let idValue = muestraIS.target.value
+    let insertaModificacion = document.getElementById('eliminaObjeto')
+    insertaModificacion.innerHTML = `
+          <div id = 'idStorageToModify'>
           
           <input value='${IsStoraged[idValue].id}'			id='idtoModify'				disabled></input>
           <input value='${IsStoraged[idValue].name}'			id='Modifyname'				disabled></input>
@@ -446,21 +458,80 @@ function eliminaproductos() {
             <button class="button is-link" id = 'Eliminabtn' >Eliminar</button>
           </div>
           </div>`;
-      eliminaArrayLocStor(idValue)
-    })
+    eliminaArrayLocStor(idValue)
+  })
+}
 
-  } else {
-    let muestraPRoductaModificar = document.getElementById('<selecttodele>');
-    for (const prodModif of productList) {
-      let muestraStorage = document.createElement("option");
-      muestraStorage.innerHTML = `${prodModif.name}`
-      muestraPRoductaModificar.appendChild(muestraStorage)
-    }
-  }
+
+
+
+function eliminaArrayLocStor(idValue) 
+{
+  let btneliminar = document.getElementById('Eliminabtn');
+  btneliminar.addEventListener('click', () => 
+  {
+    Swal.fire({
+      title: 'Está seguro de eliminar el producto?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, seguro',
+      cancelButtonText: 'No, no quiero'
+  }).then((result) => {
+
+      if (result.isConfirmed) {
+          Swal.fire({
+              title: 'Borrado!',
+              icon: 'success',
+              text: 'El archivo ha sido borrado'
+          })
+          
+        let objlocalStorage = JSON.parse(localStorage.getItem("nuevolistado"))
+        let indiceArray = objlocalStorage.findIndex(el => el.id == idValue)
+        objlocalStorage.splice(indiceArray, 1)
+        let UPdateLocSto = JSON.stringify(objlocalStorage)
+        localStorage.setItem("nuevolistado", UPdateLocSto)      
+      
+      }
+  })
+  })
 
 }
 
-function eliminaArrayLocStor(idValue) {
+
+function eliminaListProductsObj(idValue)
+{
+  let muestraPRoductaModificar = document.getElementById('selecttodele');
+  for (const storage of productList) 
+  {
+    let muestraStorage = document.createElement("option");
+    muestraStorage.setAttribute("value", `${storage.id}`);
+    muestraStorage.innerHTML = `<span id = "valuestorage">${storage.name} </span>`
+    muestraPRoductaModificar.appendChild(muestraStorage);
+  }
+  let showProductsToModify = document.getElementById(`selecttodele`);
+  showProductsToModify.addEventListener('click', (muestraIS) => 
+  {
+    let idValue = muestraIS.target.value
+    let insertaModificacion = document.getElementById('eliminaObjeto')
+    insertaModificacion.innerHTML = `
+        <div id = 'idStorageToModify'			>
+        
+        <input value='${productList[idValue].id}'			id='idtoModify'				disabled></input>
+        <input value='${productList[idValue].name}'			id='Modifyname'				disabled></input>
+        <input value='${productList[idValue].description}'	id='Modifydescription'		disabled> </input>
+        <input value='${productList[idValue].image}'			id='Modifyimage'				disabled> </input>
+        <input value='${productList[idValue].precio}'			id='Modifyprice'				disabled> </input>
+        <input value='${productList[idValue].stock}'			id='Modifystock'				disabled> </input>
+          <div class="control">
+          <button class="button is-link" id = 'Eliminabtn' >Eliminar</button>
+        </div>
+        </div>`;
+    eliminaArrayProducList(idValue)
+  })
+}
+
+
+function eliminaArrayProducList(idValue) {
   let btneliminar = document.getElementById('Eliminabtn');
   btneliminar.addEventListener('click', () => {
 
@@ -478,24 +549,14 @@ function eliminaArrayLocStor(idValue) {
               icon: 'success',
               text: 'El archivo ha sido borrado'
           })
-
-          let objlocalStorage = JSON.parse(localStorage.getItem("nuevolistado"))
-          let indiceArray = objlocalStorage.findIndex(el => el.id == idValue)
-          objlocalStorage.splice(indiceArray, 1)
-          let UPdateLocSto = JSON.stringify(objlocalStorage)
-          localStorage.setItem("nuevolistado", UPdateLocSto)
-      
-
+          let indiceArray = productList.findIndex(el => el.id == idValue)
+          productList.splice(indiceArray, 1)
       }
   })
+      
+    })
 
-})
-    
-
-
-
-}
-
+  }
 //#endregion
 
 //#region Filtros a validar
