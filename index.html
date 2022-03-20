@@ -19,48 +19,53 @@
   <div id="Login">
 
   </div>
-    <div id="User" class="is-hidden is-centered" >
-      <h1>Alta de nuevo producto</h1>
-      <br>
-      <form id = "formAlta" action="">
-          <label for="">Selecciones categoria</label>
-          <div class="select">
-            <select id="categ">
 
-            </select>
-          </div>
-          <div id = "Altatexto">
 
-          </div>
+  <div id="User" class="is-hidden is-centered">
+    <h1>Alta de nuevo producto</h1>
+    <br>
+    <form id="formAlta" action="">
+      <label for="">Selecciones categoria</label>
+      <div class="select">
+        <select id="categ">
 
-      </form>
-    <hr>
+        </select>
+      </div>
+      <div id="Altatexto">
+
+      </div>
+      <hr>
+    </form>
+   
     
-    </div>
-    <div id = "Baja"> 
-      <div >
+
+
+    <div id="Baja" >
+      <h1>Eliminacion de productos</h1>
+      <br>
+      <div>
         <select id="selecttodele">
 
         </select>
-        <div id ='eliminaObjeto'>
+        <div id='eliminaObjeto'>
 
         </div>
       </div>
     </div>
 
 
-    <div id = "Modificacion"> 
-      <div >
+    <div id="Modificacion" class="is-hidden is-centered">
+      <div>
         <select id="selecttoModify">
 
         </select>
-        <div id ='ModificacionObjeto'>
+        <div id='ModificacionObjeto'>
 
         </div>
       </div>
     </div>
-    
   </div>
+
 
   <div id="webcomplete" class="Client is-hidden">
     <div id="header_navbar" class="primer_nav ">
@@ -68,12 +73,12 @@
         <div class="navbar-brand">
           <a class="navbar-item image "><img class="is-rounded" src="512.png" alt="Logo"></a>
         </div>
-        <div id="navbarMenuHeroA" class="navbar-menu">          
+        <div id="navbarMenuHeroA" class="navbar-menu">
           <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link" >
+            <a class="navbar-link">
               Carrito
             </a>
-    
+
             <div class="navbar-dropdown" id="cart">
 
             </div>
@@ -82,15 +87,15 @@
       </nav>
     </div>
 
-    <div id="menu_navbar" >
-      <nav  role="navigation" aria-label="main navigation">
+    <div id="menu_navbar">
+      <nav role="navigation" aria-label="main navigation">
         <div id="navbarcategory" class="navbar-menu ">
 
         </div>
       </nav>
     </div>
 
-    <div id="filter_left" > 
+    <div id="filter_left">
       <h1 class="is-size-1 ">
         Los Amigos-Carniceria
       </h1>
@@ -120,11 +125,14 @@
 
 
 
-
-    <div id="footer"></div>
   </div>
+    <div id="footer"></div>
+
 </body>
 
+
 <script src="scripts.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 </html>

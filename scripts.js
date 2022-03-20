@@ -17,16 +17,16 @@ const Product4 = new Product(3, "Nalga", "nalga de nuestra carniceria", "menu-ca
 const Product5 = new Product(4, "Chorizo", "chorizos....", "menu-cart/chori.jpg", 100, 300, "Embutidos");
 const productList = [Product1, Product2, Product3, Product4, Product5];
 
-function Category(id, name) {
+function category(id, name) {
   this.id = id
   this.name = name
 }
 
-const Category0 = new Category(0, "Res");
-const Category1 = new Category(1, "Granja");
-const Category2 = new Category(2, "Cerdo");
-const Category3 = new Category(3, "Embutidos");
-const Category4 = new Category(4, "Promociones");
+const Category0 = new category(0, "Res");
+const Category1 = new category(1, "Granja");
+const Category2 = new category(2, "Cerdo");
+const Category3 = new category(3, "Embutidos");
+const Category4 = new category(4, "Promociones");
 const categoryList = [Category0, Category1, Category2, Category3, Category4];
 
 let contador = 0
@@ -34,15 +34,15 @@ let contador = 0
 //#region Funciones de Pantalla principal
 
 function pantallPrincipal() {
-let bienvenida = document.getElementsByTagName("body");
-//Definimos el innerHTML con una plantilla de texto
-bienvenida.innerHTML = ` `;
-document.body.append(bienvenida);
+  let bienvenida = document.getElementsByTagName("body");
+  //Definimos el innerHTML con una plantilla de texto
+  bienvenida.innerHTML = ` `;
+  document.body.append(bienvenida);
 
-let login = document.createElement("div")
-document.getElementById("Login");
-login.innerHTML =
-  `
+  let login = document.createElement("div")
+  document.getElementById("Login");
+  login.innerHTML =
+    `
             <div class="pantallaLogin" id = "formulario">
             <h1>Bienvenidos a la Carniceria</h1>
             <img src="512.png" alt="">
@@ -56,13 +56,13 @@ login.innerHTML =
             </div>
             `;
 
-            
-document.getElementById("Login").appendChild(login);
+
+  document.getElementById("Login").appendChild(login);
 }
 
 
 function llogin() {
-  pantallPrincipal() ;
+  pantallPrincipal();
   let miFormulario = document.getElementById("formulario");
   miFormulario.addEventListener("submit", Bienvenida_form);
   function Bienvenida_form(e) {
@@ -70,7 +70,6 @@ function llogin() {
     e.preventDefault();
     //Obtenemos el elemento desde el cual se disparó el evento
     let formulario_bienvenida = e.target;
-    console.log(formulario_bienvenida);
     // Validacion usuario o cliente
     if (formulario_bienvenida.children[0].value == "Usuario") {
       let elimina = document.getElementById('Login');
@@ -217,8 +216,10 @@ function addtocart() {
     //asigno evento a ese boton
     addtocart.addEventListener('click', (e) => {
       let addValue = document.getElementById(`Cant${product.id}`);
-      carrit.push({ idProduct: product.id, value: addValue.value, 
-        nombre: product.name, precioTotal: product.precio * addValue.value });
+      carrit.push({
+        idProduct: product.id, value: addValue.value,
+        nombre: product.name, precioTotal: product.precio * addValue.value
+      });
       // console.log(carrit)
     });
   }
@@ -228,7 +229,7 @@ function addtocart() {
 function muestraCarrito() {
 
   // 
-/*  busco todos los elementos que contengan el elemento Add */
+  /*  busco todos los elementos que contengan el elemento Add */
   for (const product of productList) {
     let addtocart = document.getElementById(`Add${product.id}`)
     //asigno evento a ese boton
@@ -238,15 +239,15 @@ function muestraCarrito() {
       que se agrega un nuevo item al carrito */
       console.log(carrit);
       let limpiaCarr = document.getElementById('cart');
-      limpiaCarr.innerHTML = '';   
-      for (const carr of carrit){
+      limpiaCarr.innerHTML = '';
+      for (const carr of carrit) {
         let insertaCarrito = document.createElement("div");
-        insertaCarrito.innerHTML = `<p> Producto: ${carr.nombre}  Total = ${carr.precioTotal  }  <br> 
+        insertaCarrito.innerHTML = `<p> Producto: ${carr.nombre}  Total = ${carr.precioTotal}  <br> 
           cantidad comprada=  ${carr.value}
         </p>`
         limpiaCarr.appendChild(insertaCarrito)
       }
-  });
+    });
   }
 }
 
@@ -269,19 +270,19 @@ function MenuCategoria() {
 
 
 function listaCategoria() {
-    let abm = document.getElementById("categ");
-  for (const cat of categoryList){
+  let abm = document.getElementById("categ");
+  for (const cat of categoryList) {
     let insertaCat = document.createElement("option");
     insertaCat.innerHTML = `${cat.name}`
     document.getElementById('categ').appendChild(insertaCat)
-  } 
+  }
 }
 
 
 //#region UserFunctions
-function Alta(){
+function Alta() {
   let insertCuerpoAlta = document.createElement("div");
-  insertCuerpoAlta.setAttribute("id", "pruebaSub" );
+  insertCuerpoAlta.setAttribute("id", "pruebaSub");
   insertCuerpoAlta.innerHTML = `
     <label> Ingrese el nombre del producto </label> 
     <input class="input is-danger" type="text" placeholder="Ingrese nombre producto" id = "nameAlta" value="">
@@ -308,33 +309,42 @@ function Alta(){
 
 }
 
-let JSONListaprod
+let JSONListaprod = [];
 
-function submitProductoNuevo(){
+function submitProductoNuevo() {
 
-let registraAlta = document.getElementById('btnSubmitconClick');
-  registraAlta.addEventListener('click' ,  (e) => {
-        //Cancelamos el comportamiento del evento
-        e.preventDefault();
-        //Obtenemos el elemento desde el cual se disparó el evento
-        let id = productList.length;
-        // let form_Alta = e.target;
-        let nombreAlta = document.getElementById('nameAlta');
-        let descriptionAlta = document.getElementById('descriptionAlta');
-        let imageAlta = document.getElementById('imageAlta');
-        let priceAlta = document.getElementById('priceAlta') ;
-        let stockAlta = document.getElementById('stockAlta')
-        let productoAlta = new Product(id , nombreAlta.value, descriptionAlta.value, imageAlta.value, priceAlta.value, stockAlta.value);
-        productList.push(productoAlta);
-        console.log(productList)
-        JSONListaprod = JSON.stringify(productList);
-        localStorage.setItem("nuevolistado",JSONListaprod)
-        alert("Creado con exito!")
-        let sub = document.getElementById('formAlta');
-  } )
+  let registraAlta = document.getElementById('btnSubmitconClick');
+  registraAlta.addEventListener('click', (e) => {
+
+
+    
+    //Cancelamos el comportamiento del evento
+    e.preventDefault();
+    //Obtenemos el elemento desde el cual se disparó el evento
+    let id = productList.length;
+    // let form_Alta = e.target;
+    let nombreAlta = document.getElementById('nameAlta');
+    let descriptionAlta = document.getElementById('descriptionAlta');
+    let imageAlta = document.getElementById('imageAlta');
+    let priceAlta = document.getElementById('priceAlta');
+    let stockAlta = document.getElementById('stockAlta')
+    let productoAlta = new Product(id, nombreAlta.value, descriptionAlta.value, imageAlta.value, priceAlta.value, stockAlta.value);
+    productList.push(productoAlta);
+    console.log(productList)
+    JSONListaprod = JSON.stringify(productList);
+    localStorage.setItem("nuevolistado", JSONListaprod)
+    Swal.fire({
+      title: 'Muy bien!',
+      text: 'Se agrego el producto a la lista de productos!',
+      icon: 'success',
+      confirmButtonText: 'Cool'
+  })
+  
+    let sub = document.getElementById('formAlta');
+  })
 }
 
-let IsStoraged =  [];
+let IsStoraged = [];
 /*
 function Modificacion(){
   IsStoraged = JSON.parse(localStorage.getItem("nuevolistado"));
@@ -409,23 +419,21 @@ function NuevaModificacion(){
 
 
 */
-function eliminaproductos(){
+function eliminaproductos() {
   IsStoraged = JSON.parse(localStorage.getItem("nuevolistado"));
-  if (IsStoraged != undefined )
-  {
-      let muestraPRoductaModificar  = document.getElementById('selecttodele');
-      for (const storage of IsStoraged){
-        let muestraStorage = document.createElement("option");
-        muestraStorage.setAttribute("value", `${storage.id}` );
-        muestraStorage.innerHTML = `<span id = "valuestorage">${storage.name} </span>`
-        muestraPRoductaModificar.appendChild(muestraStorage);
-      }
-      let showProductsToModify = document.getElementById(`selecttodele`); 
-        showProductsToModify.addEventListener('click', (muestraIS)=>
-        {
-          let idValue = muestraIS.target.value
-          let insertaModificacion = document.getElementById('eliminaObjeto')
-          insertaModificacion.innerHTML = `
+  if (IsStoraged != undefined) {
+    let muestraPRoductaModificar = document.getElementById('selecttodele');
+    for (const storage of IsStoraged) {
+      let muestraStorage = document.createElement("option");
+      muestraStorage.setAttribute("value", `${storage.id}`);
+      muestraStorage.innerHTML = `<span id = "valuestorage">${storage.name} </span>`
+      muestraPRoductaModificar.appendChild(muestraStorage);
+    }
+    let showProductsToModify = document.getElementById(`selecttodele`);
+    showProductsToModify.addEventListener('click', (muestraIS) => {
+      let idValue = muestraIS.target.value
+      let insertaModificacion = document.getElementById('eliminaObjeto')
+      insertaModificacion.innerHTML = `
           <div id = 'idStorageToModify'			>
           
           <input value='${IsStoraged[idValue].id}'			id='idtoModify'				disabled></input>
@@ -437,38 +445,61 @@ function eliminaproductos(){
             <div class="control">
             <button class="button is-link" id = 'Eliminabtn' >Eliminar</button>
           </div>
-          </div>`;      
-          // console.log(idValue)
-          eliminaArrayLocStor(idValue)
-        })
-      
-  } else 
-  {
-        let muestraPRoductaModificar  = document.getElementById('<selecttodele>');
-        for (const prodModif  of productList){
-          let muestraStorage = document.createElement("option");
-          muestraStorage.innerHTML = `${prodModif.name}`
-          muestraPRoductaModificar.appendChild(muestraStorage)
-        }
+          </div>`;
+      eliminaArrayLocStor(idValue)
+    })
+
+  } else {
+    let muestraPRoductaModificar = document.getElementById('<selecttodele>');
+    for (const prodModif of productList) {
+      let muestraStorage = document.createElement("option");
+      muestraStorage.innerHTML = `${prodModif.name}`
+      muestraPRoductaModificar.appendChild(muestraStorage)
+    }
   }
 
 }
 
-function eliminaArrayLocStor(idValue){
-let btneliminar = document.getElementById('Eliminabtn');
-btneliminar.addEventListener('click', () =>{ 
-let objlocalStorage = JSON.parse(localStorage.getItem("nuevolistado"))
-let indiceArray = objlocalStorage.findIndex(el => el.id == idValue)
-objlocalStorage.splice(indiceArray,1)
-let UPdateLocSto = JSON.stringify(objlocalStorage)
-localStorage.setItem("nuevolistado",UPdateLocSto)
+function eliminaArrayLocStor(idValue) {
+  let btneliminar = document.getElementById('Eliminabtn');
+  btneliminar.addEventListener('click', () => {
+
+    Swal.fire({
+      title: 'Está seguro de eliminar el producto?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, seguro',
+      cancelButtonText: 'No, no quiero'
+  }).then((result) => {
+
+      if (result.isConfirmed) {
+          Swal.fire({
+              title: 'Borrado!',
+              icon: 'success',
+              text: 'El archivo ha sido borrado'
+          })
+
+          let objlocalStorage = JSON.parse(localStorage.getItem("nuevolistado"))
+          let indiceArray = objlocalStorage.findIndex(el => el.id == idValue)
+          objlocalStorage.splice(indiceArray, 1)
+          let UPdateLocSto = JSON.stringify(objlocalStorage)
+          localStorage.setItem("nuevolistado", UPdateLocSto)
+      
+
+      }
+  })
+
 })
+    
+
+
+
 }
 
 //#endregion
 
 //#region Filtros a validar
-  // Filtro lateral
+// Filtro lateral
 function menorprecio() {
   //Ordena por mayor precio
   let boton = document.getElementById("menorprecio")
@@ -522,11 +553,11 @@ function mayorprecio() {
 
 //#endregion
 
-llogin(); 
+llogin();
 
 
 
-function footer () {
+function footer() {
   let footer = document.getElementById('footer')
   footer.innerHTML = `<div id='NewFooter'>
     <p> Pagina creada por <span>Matias Rearte</span></p>
