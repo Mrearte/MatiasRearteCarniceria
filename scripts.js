@@ -87,13 +87,15 @@ function llogin() {
       elimina.classList.add('is-hidden');
       let remo = document.getElementById('webcomplete')
       remo.classList.remove('is-hidden')
-      MenuCategoria();
+
+
       menu_cart_dinamico();
       suma_btn();
       resta_btn();
       addtocart();
       menorprecio();
       mayorprecio();
+      MenuCategoria();
     }
   }
 }
@@ -117,9 +119,10 @@ function consultaNombreProducto(nombre) {
 //#region Menu navbar Categoria
 
 function MenuCategoria() {
-  // let cat = document.getElementById("menu_navbar");
+  let cat = document.getElementById("menu_navbar");
+  console.log(categoryList)
   for (const categ of categoryList) {
-    let contcat = document.createElement("a")
+    let contcat = document.createElement("div")
     contcat.setAttribute("class", "Hoverstyle navbar-item ");
     contcat.innerHTML = `
                 <span>${categ.name}</span>
