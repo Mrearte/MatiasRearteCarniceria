@@ -1,0 +1,484 @@
+[
+    {
+        "id": 0,
+        "name": "roast beef",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Res/roast-beef_1.jpg",
+        "stock": 100,
+        "precio": 950,
+        "category": "Res"
+    },
+    {
+        "id": 1,
+        "name": "Paleta",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Res/paleta_2.jpg",
+        "stock": 100,
+        "precio": 990,
+        "category": "Res"
+    },
+    {
+        "id": 2,
+        "name": "Bife ancho",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Res/bife-ancho_1.jpg",
+        "stock": 100,
+        "precio": 950,
+        "category": "Res"
+    },
+    {
+        "id": 3,
+        "name": "Bola de lomo",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Res/bola-de-lomo.jpg",
+        "stock": 100,
+        "precio": 950,
+        "category": "Res"
+    },
+    {
+        "id": 4,
+        "name": "Picada premium",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Res/picada.jpg",
+        "stock": 100,
+        "precio": 990,
+        "category": "Res"
+    },
+    {
+        "id": 5,
+        "name": "Asado",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Res/asado-new.jpg",
+        "stock": 100,
+        "precio": 1200,
+        "category": "Res"
+    },
+    {
+        "id": 6,
+        "name": "Vacio",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Res/vacio_2.jpg",
+        "stock": 100,
+        "precio": 1590,
+        "category": "Res"
+    },
+                        
+
+                            {
+        "id": 7,
+        "name": "Bife de chorizo",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Res/bife-de-chorizo.jpg",
+        "stock": 100,
+        "precio": 1890,
+        "category": "Res"
+    },
+                            
+
+    {
+        "id": 8,
+        "name": "Ojo de bife",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Res/ojo-de-bife.jpg",
+        "stock": 100,
+        "precio": 1890,
+        "category": "Res"
+    },
+    {
+        "id": 9,
+        "name": "Colita de cuadril",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Res/colita_4.jpg",
+        "stock": 100,
+        "precio": 1990,
+        "category": "Res"
+    },
+    {
+        "id": 10,
+        "name": "Matambre",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Res/matambre_2.jpg",
+        "stock": 100,
+        "precio": 1490,
+        "category": "Res"
+    },
+    {
+        "id": 11,
+        "name": "Bife angosto",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Res/bife-angosto_1.jpg",
+        "stock": 100,
+        "precio": 1290,
+        "category": "Res"
+    },
+    {
+        "id": 12,
+        "name": "Lomo",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Res/lomo_2.jpg",
+        "stock": 100,
+        "precio": 2390,
+        "category": "Res"
+    },
+    {
+        "id": 13,
+        "name": "Peceto",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Res/peceto_5.jpg",
+        "stock": 100,
+        "precio": 1990,
+        "category": "Res"
+    },
+    {
+        "id": 14,
+        "name": "Tapa de asado",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Res/tapa-de-asado.jpg",
+        "stock": 100,
+        "precio": 990,
+        "category": "Res"
+    },
+    {
+        "id": 15,
+        "name": "Picanha",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Res/pica_a_1.jpg",
+        "stock": 100,
+        "precio": 950,
+        "category": "Res"
+    },
+    {
+        "id": 16,
+        "name": "Bife americano",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Res/bife-americano2.jpg",
+        "stock": 100,
+        "precio": 1200,
+        "category": "Res"
+    },
+    {
+        "id": 17,
+        "name": "Cuadrada",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Res/cuadrada_1.jpg",
+        "stock": 100,
+        "precio": 1300,
+        "category": "Res"
+    },
+    {
+        "id": 18,
+        "name": "Cuadril",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Res/cuadril_4.jpg",
+        "stock": 100,
+        "precio": 1350,
+        "category": "Res"
+    },
+    {
+        "id": 19,
+        "name": "Nalga",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Res/nalga_1.jpg",
+        "stock": 100,
+        "precio": 1650,
+        "category": "Res"
+    },
+    {
+        "id": 20,
+        "name": "Tapa de nalga",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Res/tapa-de-nalga.jpg",
+        "stock": 100,
+        "precio": 1150,
+        "category": "Res"
+    },
+    {
+        "id": 21,
+        "name": "Osobuco",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Res/osobuco_1.jpg",
+        "stock": 100,
+        "precio": 770,
+        "category": "Res"
+    },
+    {
+        "id": 22,
+        "name": "Pastron",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Res/pastron-baja.jpg",
+        "stock": 100,
+        "precio": 1990,
+        "category": "Res"
+    },
+    {
+        "id": 23,
+        "name": "Entraña",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Res/entra_a_1.jpg",
+        "stock": 100,
+        "precio": 2390,
+        "category": "Res"
+    },
+    {
+        "id": 24,
+        "name": "OJo de bife - pieza entera",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Res/ojo-de-bife_1.jpg",
+        "stock": 100,
+        "precio": 1890,
+        "category": "Res"
+    },
+                                                                                                
+
+                                                                                                    {
+        "id": 25,
+        "name": "T-bone",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Res/t-bone.jpg",
+        "stock": 100,
+        "precio": 1890,
+        "category": "Res"
+    },
+                                                                                                    
+
+                                                                                                        {
+        "id": 26,
+        "name": "Suprema",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Granja/supremas-2.jpg",
+        "stock": 100,
+        "precio": 950,
+        "category": "Granja"
+    },
+                                                                                                        
+
+                                                                                                            {
+        "id": 27,
+        "name": "Pata y muslo",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Granja/pata-muslo.jpg",
+        "stock": 100,
+        "precio": 330,
+        "category": "Granja"
+    },
+                                                                                                            
+
+                                                                                                                {
+        "id": 28,
+        "name": "brochete de pollo",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Granja/brochete-pollo.jpg",
+        "stock": 100,
+        "precio": 1200,
+        "category": "Granja"
+    },
+                                                                                                                
+
+                                                                                                                    {
+        "id": 29,
+        "name": "Churrasquito de pollo",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Granja/churrasquito-pollo.jpg",
+        "stock": 100,
+        "precio": 895,
+        "category": "Granja"
+    },
+                                                                                                                    
+
+    {
+        "id": 30,
+        "name": "Milanesas de pollo",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Granja/milanesas-pollo.jpg",
+        "stock": 100,
+        "precio": 850,
+        "category": "Granja"
+    },
+
+
+    {
+        "id": 31,
+        "name": "Pollo entero",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Granja/pollo-entero.jpg",
+        "stock": 100,
+        "precio": 350,
+        "category": "Granja"
+    },
+    
+
+    {
+        "id": 32,
+        "name": "Bondiola",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Cerdo/bondiola_2.jpg",
+        "stock": 100,
+        "precio": 950,
+        "category": "Cerdo"
+    },
+
+
+    {
+        "id": 33,
+        "name": "Churrasquito de cerdo",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Cerdo/churrasquito-cerdo.jpg",
+        "stock": 100,
+        "precio": 990,
+        "category": "Cerdo"
+    },
+    
+
+    {
+        "id": 34,
+        "name": "Costillita de cerdo",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Cerdo/costillita-cerdo.jpg",
+        "stock": 100,
+        "precio": 795,
+        "category": "Cerdo"
+    },
+
+
+    {
+        "id": 35,
+        "name": "Matambre",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Cerdo/matambre_1.jpg",
+        "stock": 100,
+        "precio": 1100,
+        "category": "Cerdo"
+    },
+
+
+    {
+        "id": 36,
+        "name": "Pechito de cerdo",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Cerdo/pechito.jpg",
+        "stock": 100,
+        "precio": 795,
+        "category": "Cerdo"
+    },
+
+
+    {
+        "id": 37,
+        "name": "Ribs de cerdo ",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Cerdo/ribs-crudo-baja.jpg",
+        "stock": 100,
+        "precio": 990,
+        "category": "Cerdo"
+    },
+
+
+    {
+        "id": 38,
+        "name": "Solomillo",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Cerdo/solomillo_1.jpg",
+        "stock": 100,
+        "precio": 950,
+        "category": "Cerdo"
+    },
+    
+
+    {
+        "id": 39,
+        "name": "Chinchulin",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Embutidos/chinchulin_1.jpg",
+        "stock": 100,
+        "precio": 950,
+        "category": "Embutidos"
+    },
+
+
+    {
+        "id": 40,
+        "name": "Chorizo",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Embutidos/chorizo.jpg",
+        "stock": 100,
+        "precio": 695,
+        "category": "Embutidos"
+    },
+
+
+    {
+        "id": 41,
+        "name": "Higado",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Embutidos/higado_1.jpg",
+        "stock": 100,
+        "precio": 330,
+        "category": "Embutidos"
+    },
+
+
+    {
+        "id": 42,
+        "name": "Morcilla Rosca",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Embutidos/morcilla-rosca.jpg",
+        "stock": 100,
+        "precio": 495,
+        "category": "Embutidos"
+    },
+
+
+    {
+        "id": 43,
+        "name": "Morcilla",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Embutidos/morcilla.jpg",
+        "stock": 100,
+        "precio": 495,
+        "category": "Embutidos"
+    },
+
+
+    {
+        "id": 44,
+        "name": "Riñon",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Embutidos/ri_on_1.jpg",
+        "stock": 100,
+        "precio": 590,
+        "category": "Embutidos"
+    },
+
+
+    {
+        "id": 45,
+        "name": "Salchicha Parrillera",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Embutidos/salchicha-parrillera.jpg",
+        "stock": 100,
+        "precio": 990,
+        "category": "Embutidos"
+    },
+    {
+        "id": 46,
+        "name": "carre deshuesado",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Cerdo/carre-deshuesado.jpg",
+        "stock": 100,
+        "precio": 1500,
+        "category": "Cerdo"
+    },
+
+
+    {
+        "id": 47,
+        "name": "Chuleta",
+        "description": "Precio por Kg. Las compras se hacen solo por Kg.",
+        "image": "menu-cart/menu-cart/Cerdo/chuleta-pernil.jpg",
+        "stock": 100,
+        "precio": 360,
+        "category": "Cerdo"
+    }
+
+
+]
