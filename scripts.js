@@ -17,12 +17,51 @@ const Product4 = new Product(3, "Nalga", "nalga de nuestra carniceria", "menu-ca
 const Product5 = new Product(4, "Chorizo", "chorizos....", "menu-cart/chori.jpg", 100, 300, "Embutidos");
 const productList = [Product1, Product2, Product3, Product4, Product5];
 
-let listaProductsfetch = [] ;
+let listaProductsfetch = [];
 
 fetch('data.json')
-.then((resp) => resp.json() )
-.then( (data) =>  muestraCartDinamico(data)
-);
+  .then((resp) => resp.json())
+  .then((data) => {
+    muestraCartDinamico(data)
+    sumaCantdeProd(data);
+    restaCantdeProd(data);
+    muestraCarrito(data);
+    MenuCategoria();
+
+    categoryList.forEach(categ => {
+      let btnSumar = document.getElementById(`btnfiltrocat${categ.id}`)
+      btnSumar.addEventListener('click', (e) => {
+        e.preventDefault();
+        nombreCategoria = categ.name
+        switch (categ.name) {
+          case "Res":
+            filtroPorCategoria(data, nombreCategoria);
+            sumaCantdeProd(data);
+            restaCantdeProd(data);
+            muestraCarrito(data);
+          break;
+          case "Granja":
+            filtroPorCategoria(data, nombreCategoria);
+            break;
+          case "Cerdo":
+            filtroPorCategoria(data, nombreCategoria);
+
+            break;
+          case "Embutidos":
+            filtroPorCategoria(data, nombreCategoria);
+
+            break;
+          case "Favoritos":
+            filtroPorCategoria(data, nombreCategoria);
+
+              ;
+        }
+      });
+    });
+    
+
+  }
+  );
 
 console.log(listaProductsfetch);
 
@@ -35,10 +74,56 @@ const Category0 = new category(0, "Res");
 const Category1 = new category(1, "Granja");
 const Category2 = new category(2, "Cerdo");
 const Category3 = new category(3, "Embutidos");
-const Category4 = new category(4, "Promociones");
+const Category4 = new category(4, "Favoritos");
 const categoryList = [Category0, Category1, Category2, Category3, Category4];
 
 let contador = 0
+
+
+
+
+
+function filtroPorCategoria(data, nombreCategoria) {
+
+  let borra = document.getElementById("menu-Products")
+  borra.innerHTML = '';
+  for (const ordena of data) {
+    if (ordena.category == nombreCategoria) {
+      let contenedor = document.createElement("div");
+      // contenedor.setAttribute(id,id);
+      contenedor.setAttribute("class", "column is-3 mx-2 mb-1 elimina ");
+      // is-3 mx-2 mb-1 elimina
+      // let contenedor = document.getElementById("menu-Products")
+      contenedor.innerHTML =
+        `
+                  <div class='box boxmia' >
+                      <img src='${ordena.image}' alt='' style='opacity:1;'>
+                      <h2 class='title is-size-5'>${ordena.name}</h2>
+                      <h3 class='subtitle is-size-6'>${ordena.description}​</h3>
+                      <p> Precio por kg: ${ordena.precio}</p>
+                      <div class='has-text-centered'>
+                      <button class='button btnadd${ordena.id}' id = 'Add${ordena.id}'>Agregar</button>
+                      </div>
+                      <div class = 'has-text-centered ' >
+                          <button id ='btnResta${ordena.id}'> - </button>
+                          <!--Le asigno id unica, mezclo texto con $llave para que todos los inputs y todos los button tenga id diferente--> 
+                          <input  id="Cant${ordena.id}" type="text"  value= 0></input>
+                                                <button id ='btnSumar${ordena.id}' > + </button> 
+                      </div>
+                  </div>`;
+      document.getElementById("menu-Products").appendChild(contenedor)
+    }
+  }
+  let updateBreadcrumb = document.getElementById('breadcrumb');
+  updateBreadcrumb.innerHTML = `${nombreCategoria}`
+}
+
+
+
+
+
+
+
 
 
 
@@ -60,38 +145,35 @@ function MenuCategoria() {
 
   categoryList.forEach(cat => {
     let buscadivCat = document.createElement("a");
-    buscadivCat.setAttribute("class","navbar-item");
-    buscadivCat.innerHTML = `<span>${cat.name} </span>`;
+    buscadivCat.setAttribute("class", "navbar-item");
+    buscadivCat.innerHTML = `<span id= 'btnfiltrocat${cat.id}'>${cat.name} </span>`;
     document.getElementById("navbar-Category").appendChild(buscadivCat);
   });
 }
 
-MenuCategoria();
+// MenuCategoria();
 
 
 function menu_cart_dinamico() {
   validacionStorageCartDinamico();
-}  
+}
 
-function validacionStorageCartDinamico() 
-  {
-    let  IsStoraged = JSON.parse(localStorage.getItem("nuevolistado"));
-    let productAValidar = listaProductsfetch 
-    IsStoraged == undefined ? muestraCartDinamico(productAValidar) : muestraCartDinamico(IsStoraged);
-    console.log(productAValidar)
-  }
+function validacionStorageCartDinamico() {
+  let IsStoraged = JSON.parse(localStorage.getItem("nuevolistado"));
+  let productAValidar = listaProductsfetch
+  IsStoraged == undefined ? muestraCartDinamico(productAValidar) : muestraCartDinamico(IsStoraged);
+  console.log(productAValidar)
+}
 
-function muestraCartDinamico(filtro)
-{
-  for (const ordena of filtro)
-    {
-      let contenedor = document.createElement("div");
-      // contenedor.setAttribute(id,id);
-      contenedor.setAttribute("class", "column is-3 mx-2 mb-1 elimina ");
-      // is-3 mx-2 mb-1 elimina
-       // let contenedor = document.getElementById("menu-Products")
-      contenedor.innerHTML =
-        `
+function muestraCartDinamico(filtro) {
+  for (const ordena of filtro) {
+    let contenedor = document.createElement("div");
+    // contenedor.setAttribute(id,id);
+    contenedor.setAttribute("class", "column is-3 mx-2 mb-1 elimina ");
+    // is-3 mx-2 mb-1 elimina
+    // let contenedor = document.getElementById("menu-Products")
+    contenedor.innerHTML =
+      `
               <div class='box boxmia' >
                   <img src='${ordena.image}' alt='' style='opacity:1;'>
                   <h2 class='title is-size-5'>${ordena.name}</h2>
@@ -107,8 +189,8 @@ function muestraCartDinamico(filtro)
                                             <button id ='btnSumar${ordena.id}' > + </button> 
                   </div>
               </div>`;
-              document.getElementById("menu-Products").appendChild(contenedor)
-    }
+    document.getElementById("menu-Products").appendChild(contenedor)
+  }
 
 }
 
@@ -124,23 +206,22 @@ menu_cart_dinamico();
 
 
 // Suma 
-function validacionStorageParaSumarCant() 
-  {
-    let  IsStoraged = JSON.parse(localStorage.getItem("nuevolistado"));
-    let productAValidar = listaProductsfetch 
-    IsStoraged == undefined ? sumaCantdeProd(productAValidar) : sumaCantdeProd(IsStoraged);
-  }
+function validacionStorageParaSumarCant() {
+  let IsStoraged = JSON.parse(localStorage.getItem("nuevolistado"));
+  let productAValidar = listaProductsfetch
+  IsStoraged == undefined ? sumaCantdeProd(productAValidar) : sumaCantdeProd(IsStoraged);
+}
 
 
-function sumaCantdeProd(filtro)
-{
-
-  //muy bien el forEach, aca estás recorriendo todo tu array
+function sumaCantdeProd(filtro) {
+// console.log(filtro)
   filtro.forEach(product => {
+
     //Capturo el btn sumar id de cada elemento
     let btnSumar = document.getElementById(`btnSumar${product.id}`)
-    //asigno evento a ese boton
+
     btnSumar.addEventListener('click', (e) => {
+
       //sumatoria es igual al input, que arranca el value = 0 
       let sumatoria = document.getElementById(`Cant${product.id}`)
       e.preventDefault();
@@ -152,14 +233,14 @@ function sumaCantdeProd(filtro)
 
 function suma_btn() {
 
-  validacionStorageParaSumarCant() 
+  validacionStorageParaSumarCant()
 
 }
 
 
 
 
-suma_btn();
+// suma_btn();
 
 
 
@@ -168,15 +249,13 @@ suma_btn();
 
 // Resta
 
-function validacionStorageParaRestarCant() 
-  {
-    let  IsStoraged = JSON.parse(localStorage.getItem("nuevolistado"));
-    let productAValidar = listaProductsfetch 
-    IsStoraged == undefined ? restaCantdeProd(productAValidar) : restaCantdeProd(IsStoraged);
-  }
+function validacionStorageParaRestarCant() {
+  let IsStoraged = JSON.parse(localStorage.getItem("nuevolistado"));
+  let productAValidar = listaProductsfetch
+  IsStoraged == undefined ? restaCantdeProd(productAValidar) : restaCantdeProd(IsStoraged);
+}
 
-function restaCantdeProd(filtro)
-{
+function restaCantdeProd(filtro) {
 
   //muy bien el forEach, aca estás recorriendo todo tu array
   filtro.forEach(product => {
@@ -198,7 +277,7 @@ function restaCantdeProd(filtro)
 
 
 function resta_btn() {
-  validacionStorageParaRestarCant() 
+  validacionStorageParaRestarCant()
 }
 
 resta_btn();
@@ -207,20 +286,19 @@ resta_btn();
 
 // Boton Agregar al carrito
 
-let carrit =  [];
+let carrit = [];
 
-function validacionStorageAddtoCArt()
-  {
-    let  IsStoraged = JSON.parse(localStorage.getItem("nuevolistado"));
-    let productAValidar = listaProductsfetch 
-    IsStoraged === undefined ? muestraCarrito(IsStoraged) : muestraCarrito(productAValidar);
-  }
+function validacionStorageAddtoCArt() {
+  let IsStoraged = JSON.parse(localStorage.getItem("nuevolistado"));
+  let productAValidar = listaProductsfetch
+  IsStoraged === undefined ? muestraCarrito(IsStoraged) : muestraCarrito(productAValidar);
+}
 
 function addtocart() {
   validacionStorageAddtoCArt()
 }
 
-function muestraCarrito(filtro){  
+function muestraCarrito(filtro) {
 
 
   // recorriendo array
@@ -234,12 +312,12 @@ function muestraCarrito(filtro){
 
       let indiceCarrito = carrit.findIndex((el) => el.idProduct === product.id);
       console.log(indiceCarrito)
-      if (indiceCarrito < 0 ) {
+      if (indiceCarrito < 0) {
         carrit.push(
           {
-            idProduct: product.id, 
+            idProduct: product.id,
             value: addValue.value,
-            nombre: product.name, 
+            nombre: product.name,
             precioTotal: product.precio * addValue.value,
             description: product.description,
             precio: product.precio,
@@ -247,9 +325,9 @@ function muestraCarrito(filtro){
           });
 
       } else {
-        
+
         carrit[product.id].value = addValue.value;
-        carrit[product.id].precioTotal =   carrit[product.id].value * carrit[product.id].precio
+        carrit[product.id].precioTotal = carrit[product.id].value * carrit[product.id].precio
       }
     });
   });
@@ -273,27 +351,25 @@ const modal = document.querySelector('.modal');
 const closebtnModal = document.getElementById('closebtnModal');
 
 
-modalCarrito() ;
+modalCarrito();
 
-function modalCarrito() 
-{
-btnModal.addEventListener('click', (e) => 
-{
+function modalCarrito() {
+  btnModal.addEventListener('click', (e) => {
 
-  modal.classList.add('is-active')
-  e.preventDefault()
-  logicaMostrarCarrito()
-});
+    modal.classList.add('is-active')
+    e.preventDefault()
+    logicaMostrarCarrito()
+  });
 
-modalBG.addEventListener('click', (e) =>{
-  modal.classList.remove('is-active')
-  e.preventDefault()
-} )
+  modalBG.addEventListener('click', (e) => {
+    modal.classList.remove('is-active')
+    e.preventDefault()
+  })
 
-closebtnModal.addEventListener('click', (e) => {
-  modal.classList.remove('is-active')
-  e.preventDefault()
-})
+  closebtnModal.addEventListener('click', (e) => {
+    modal.classList.remove('is-active')
+    e.preventDefault()
+  })
 
 }
 
@@ -301,7 +377,7 @@ closebtnModal.addEventListener('click', (e) => {
 // botones del carrito sumar , agregar , eliminar y finalizar compra
 
 
-function sumaModal(){
+function sumaModal() {
   carrit.forEach(product => {
     let btnSumarCarrito = document.getElementById(`sumaDelCarrito${product.idProduct}`)
     btnSumarCarrito.addEventListener('click', (e) => {
@@ -317,7 +393,7 @@ function sumaModal(){
   });
 }
 
-function restaModal(){
+function restaModal() {
   carrit.forEach(product => {
     let btnSumarCarrito = document.getElementById(`restaDelCarrito${product.idProduct}`)
     btnSumarCarrito.addEventListener('click', (e) => {
@@ -326,25 +402,25 @@ function restaModal(){
       console.log(sumatoriaencarrito)
       product.value--
       product.precioTotal = product.value * product.precio;
-      
+
       return sumatoriaencarrito.value--
     });
   });
 }
 
-function EliminaListadeCarrito(){
+function EliminaListadeCarrito() {
   carrit.forEach(product => {
     let btnEliminaCarrito = document.getElementById(`EliminardelCarrito${product.idProduct}`)
     btnEliminaCarrito.addEventListener('click', (e) => {
-        carrit.splice(product.idProduct, 1)
-        btnEliminaCarrito.innerHTML = '';
-        logicaMostrarCarrito();
+      carrit.splice(product.idProduct, 1)
+      btnEliminaCarrito.innerHTML = '';
+      logicaMostrarCarrito();
     });
   });
 }
 
 
-function logicaMostrarCarrito(){
+function logicaMostrarCarrito() {
 
   let limpiaCarr = document.getElementById('Carrito-Muestra');
   limpiaCarr.innerHTML = '';
@@ -386,7 +462,7 @@ function logicaMostrarCarrito(){
     </div>
   </article>  
   `
-  limpiaCarr.appendChild(carritoMuestra)
+    limpiaCarr.appendChild(carritoMuestra)
 
   })
 
@@ -399,30 +475,25 @@ function logicaMostrarCarrito(){
 
 
 
-function validacionStorageMenorPrecio()
-  {
-    let  IsStoraged = JSON.parse(localStorage.getItem("nuevolistado"));
-    let productAValidar = listaProductsfetch 
-    IsStoraged == undefined ? sortMenorPrecio(productAValidar) : sortMenorPrecio(IsStoraged);
-  }
+function validacionStorageMenorPrecio() {
+  let IsStoraged = JSON.parse(localStorage.getItem("nuevolistado"));
+  let productAValidar = listaProductsfetch
+  IsStoraged == undefined ? sortMenorPrecio(productAValidar) : sortMenorPrecio(IsStoraged);
+}
 
-function menorprecio() 
-{
+function menorprecio() {
   validacionStorageMenorPrecio()
 }
-function sortMenorPrecio(option){   
+function sortMenorPrecio(option) {
   //Ordena por menor precio
   let boton = document.getElementById("MenorPrecio")
-  boton.addEventListener("click", (e) =>
-  {
+  boton.addEventListener("click", (e) => {
     e.preventDefault();
     let element = document.getElementById("menu-Products");
-    while (element.firstChild) 
-    {
+    while (element.firstChild) {
       element.removeChild(element.firstChild);
     }
-    option.sort((a, b) => 
-    {
+    option.sort((a, b) => {
       if (a.precio > b.precio) {
         return 1
       }
@@ -432,7 +503,7 @@ function sortMenorPrecio(option){
       return 0
     })
     let eiliminarMenorPrecio = document.getElementById('menu-Products')
-    eiliminarMenorPrecio.innerHTML= '';
+    eiliminarMenorPrecio.innerHTML = '';
     muestraCartDinamico(option);
     suma_btn();
     resta_btn();
@@ -440,35 +511,30 @@ function sortMenorPrecio(option){
   })
 }
 
-menorprecio() ;
+menorprecio();
 
 
 // mayor precio
 
-function validacionStorageMayorPrecio()
-  {
-    let  IsStoraged = JSON.parse(localStorage.getItem("nuevolistado"));
-    let productAValidar = listaProductsfetch 
-    IsStoraged == undefined ? sortMayorPrecio(productAValidar) : sortMayorPrecio(IsStoraged);
-  }
+function validacionStorageMayorPrecio() {
+  let IsStoraged = JSON.parse(localStorage.getItem("nuevolistado"));
+  let productAValidar = listaProductsfetch
+  IsStoraged == undefined ? sortMayorPrecio(productAValidar) : sortMayorPrecio(IsStoraged);
+}
 
-function mayorprecio() 
-{
+function mayorprecio() {
   validacionStorageMayorPrecio()
 }
-function sortMayorPrecio(option){   
+function sortMayorPrecio(option) {
   //Ordena por menor precio
   let boton = document.getElementById("MayorPrecio")
-  boton.addEventListener("click", (e) =>
-  {
+  boton.addEventListener("click", (e) => {
     e.preventDefault();
     let element = document.getElementById("menu-Products");
-    while (element.firstChild) 
-    {
+    while (element.firstChild) {
       element.removeChild(element.firstChild);
     }
-    option.sort((a, b) => 
-    {
+    option.sort((a, b) => {
       if (a.precio < b.precio) {
         return 1
       }
@@ -478,7 +544,7 @@ function sortMayorPrecio(option){
       return 0
     })
     let eiliminarMenorPrecio = document.getElementById('menu-Products')
-    eiliminarMenorPrecio.innerHTML= '';
+    eiliminarMenorPrecio.innerHTML = '';
     muestraCartDinamico(option);
     suma_btn();
     resta_btn();
@@ -486,7 +552,7 @@ function sortMayorPrecio(option){
   })
 }
 
-menorprecio() ;
+menorprecio();
 mayorprecio();
 
 // filtro por categoria de productos
