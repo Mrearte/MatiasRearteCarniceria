@@ -36,9 +36,6 @@ fetch('data.json')
         switch (categ.name) {
           case "Res":
             filtroPorCategoria(data, nombreCategoria);
-            sumaCantdeProd(data);
-            restaCantdeProd(data);
-            muestraCarrito(data);
           break;
           case "Granja":
             filtroPorCategoria(data, nombreCategoria);
