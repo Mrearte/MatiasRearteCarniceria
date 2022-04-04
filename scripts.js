@@ -17,6 +17,20 @@ const Product4 = new Product(3, "Nalga", "nalga de nuestra carniceria", "menu-ca
 const Product5 = new Product(4, "Chorizo", "chorizos....", "menu-cart/chori.jpg", 100, 300, "Embutidos");
 const productList = [Product1, Product2, Product3, Product4, Product5];
 
+
+
+// Menu hamburguesa
+
+const burgerIcon = document.querySelector('#Burger');
+const navbarMenu = document.querySelector('#nav-links');
+
+burgerIcon.addEventListener('click', (e) => {
+  navbarMenu.classList.toggle('is-active');
+  e.preventDefault()
+})
+
+
+
 let listaProductsfetch = [];
 
 fetch('data.json')
@@ -37,8 +51,6 @@ fetch('data.json')
 
   Logicabotones(data);
   });
-
-console.log(listaProductsfetch);
 
 function category(id, name) {
   this.id = id
@@ -65,9 +77,6 @@ function filtroPorCategoria(data, nombreCategoria) {
   if (nombreCategoria == '') {
     nombreCategoria = 'Res'
   }
-  console.log(nombreCategoria)
-
-
   for (const ordena of data) {
 
     if (ordena.category == nombreCategoria) {
@@ -109,17 +118,6 @@ function filtroPorCategoria(data, nombreCategoria) {
 
 
 
-
-
-// Menu hamburguesa
-
-const burgerIcon = document.querySelector('#Burger');
-const navbarMenu = document.querySelector('#nav-links');
-
-burgerIcon.addEventListener('click', (e) => {
-  navbarMenu.classList.toggle('is-active');
-  e.preventDefault()
-})
 
 
 // Agregar categorias 
@@ -227,7 +225,6 @@ function Logicabotones(data)
               
         }  else 
         { 
-          alert("producto exsite en el carrito")
           let indiceCarrito = carrit.findIndex((el) => el.idProduct === iDProducttoAdd); 
           console.log("index de carrito    ",indiceCarrito)
           if (indiceCarrito < 0) 
@@ -341,16 +338,18 @@ function logicaMostrarCarrito() {
     </div>
     <div>
     
-        <button id= "restaDelCarrito${itemCarrito.idProduct}"> - </button>
-        <!--Le asigno id unica, mezclo texto con $llave para que todos los inputs y todos los button tenga id diferente--> 
+        <button class= "restaDelCarrito" id = "${itemCarrito.idProduct}"> - </button>
         <input type="number"  value= '${itemCarrito.value}' id = 'valorCarrito${itemCarrito.idProduct}'></input>
-        <button id = 'sumaDelCarrito${itemCarrito.idProduct}'> + </button>  
-        <div><strong id = "Precio-total${itemCarrito.idProduct}"> Precio total:${itemCarrito.precioTotal} </strong>
+        <button class = 'sumaDelCarrito' id = '${itemCarrito.idProduct}'> + </button>  
+        <div><strong class = "Precio-total" id= "${itemCarrito.idProduct}"> Precio total:${itemCarrito.precioTotal} </strong>
         </div>
-        <i class="fa-regular fa-trash-can" id= 'EliminardelCarrito${itemCarrito.idProduct}'></i>  
+        <i class="Eliminafila fa-regular fa-trash-can" class= 'EliminardelCarrito' id = '${itemCarrito.idProduct}'></i>  
   
     </div>
+
+    
   </article>  
+  
   `
     limpiaCarr.appendChild(carritoMuestra)
 
@@ -358,17 +357,85 @@ function logicaMostrarCarrito() {
 
 }
 
+/*
+
+==============================
+Botones del carrito
+==============================
+
+*/ 
+
+function logicaBotonesCarrito() 
+{
+  let delegProducts = document.querySelector('#Carrito-Muestra');
+  delegProducts.addEventListener('click', (e) => {
+    
+    // buscar el id 
+    let buscaId = e.target.id
+    // console.log(buscaId)
+    let almacenaStorage = JSON.parse(localStorage.getItem("cartLS"));
+    let buscaPosicion = almacenaStorage.findIndex((el) => el.idProduct == buscaId);
+
+    switch (e.target.classList[0]) 
+    {
+      case 'sumaDelCarrito':
+        let almacenaValorCant = document.getElementById(`valorCarrito${buscaId}`)
+        almacenaValorCant.value++
+        almacenaStorage[buscaPosicion].value = almacenaValorCant.value
+        console.log(buscaPosicion)
+        let UpdateStoragesuma = JSON.stringify(almacenaStorage);
+        localStorage.setItem("cartLS",UpdateStoragesuma )
+
+        break;
+      case 'restaDelCarrito':
+        let almacenaValorCantres = document.getElementById(`valorCarrito${buscaId}`)
+        almacenaValorCantres.value--
+        almacenaStorage[buscaPosicion].value = almacenaValorCantres.value
+        console.log(buscaPosicion)
+        let UpdateStorageresta = JSON.stringify(almacenaStorage);
+        localStorage.setItem("cartLS",UpdateStorageresta )
+        break;
+
+      case 'Eliminafila':       
+        almacenaStorage.splice(buscaPosicion,1)
+        let UpdateStorage = JSON.stringify(almacenaStorage);
+        localStorage.setItem("cartLS",UpdateStorage )
+        break;
+      case 'confirmaCompra':
+        alert("are you sure madafaca?")
+        break;
+    }
+  })
+
+
+let BtnLimpiaConfirmacompra = document.getElementById('btnConfirmacion');
+  BtnLimpiaConfirmacompra.addEventListener('click',(e) => {
+    e.preventDefault()
+    idAccion = e.target.id
+    if (idAccion == "confirmaCompra" ){
+      alert("Gracias por elegirnos, se enviara un mail con el pedido correspondiente")
+    } else if (idAccion == "vaciaCarrito") {
+      alert("Se han eliminado correctamente los items de su carrito")
+      let UpdateStorage = JSON.stringify(carrit);
+      localStorage.removeItem("cartLS",UpdateStorage)
+    }
+
+
+  })
+
+
+}
+
+
+logicaBotonesCarrito();
 
 
 
-
-
-
-
-
-
-
+///////////////////////////////
+// 
 // Filtros laterales
+//
+////////////////////////////////
 function filterLeft(data, nombreCategoria) {
 
 
