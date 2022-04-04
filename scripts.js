@@ -22,43 +22,21 @@ let listaProductsfetch = [];
 fetch('data.json')
   .then((resp) => resp.json())
   .then((data) => {
-    muestraCartDinamico(data)
-    sumaCantdeProd(data);
-    restaCantdeProd(data);
-    muestraCarrito(data);
+    let nombreCategoria = '';
+    filtroPorCategoria(data, nombreCategoria)
     MenuCategoria();
-
     categoryList.forEach(categ => {
       let btnSumar = document.getElementById(`btnfiltrocat${categ.id}`)
       btnSumar.addEventListener('click', (e) => {
         e.preventDefault();
-        nombreCategoria = categ.name
-        switch (categ.name) {
-          case "Res":
-            filtroPorCategoria(data, nombreCategoria);
-          break;
-          case "Granja":
-            filtroPorCategoria(data, nombreCategoria);
-            break;
-          case "Cerdo":
-            filtroPorCategoria(data, nombreCategoria);
-
-            break;
-          case "Embutidos":
-            filtroPorCategoria(data, nombreCategoria);
-
-            break;
-          case "Favoritos":
-            filtroPorCategoria(data, nombreCategoria);
-
-              ;
-        }
+        let nombreCategoria = categ.name
+        filtroPorCategoria(data, nombreCategoria);
       });
-    });
-    
 
-  }
-  );
+    });
+
+  Logicabotones(data);
+  });
 
 console.log(listaProductsfetch);
 
@@ -81,10 +59,17 @@ let contador = 0
 
 
 function filtroPorCategoria(data, nombreCategoria) {
-
   let borra = document.getElementById("menu-Products")
   borra.innerHTML = '';
+
+  if (nombreCategoria == '') {
+    nombreCategoria = 'Res'
+  }
+  console.log(nombreCategoria)
+
+
   for (const ordena of data) {
+
     if (ordena.category == nombreCategoria) {
       let contenedor = document.createElement("div");
       // contenedor.setAttribute(id,id);
@@ -93,26 +78,28 @@ function filtroPorCategoria(data, nombreCategoria) {
       // let contenedor = document.getElementById("menu-Products")
       contenedor.innerHTML =
         `
-                  <div class='box boxmia' >
-                      <img src='${ordena.image}' alt='' style='opacity:1;'>
-                      <h2 class='title is-size-5'>${ordena.name}</h2>
-                      <h3 class='subtitle is-size-6'>${ordena.description}​</h3>
-                      <p> Precio por kg: ${ordena.precio}</p>
-                      <div class='has-text-centered'>
-                      <button class='button btnadd${ordena.id}' id = 'Add${ordena.id}'>Agregar</button>
-                      </div>
-                      <div class = 'has-text-centered ' >
-                          <button id ='btnResta${ordena.id}'> - </button>
-                          <!--Le asigno id unica, mezclo texto con $llave para que todos los inputs y todos los button tenga id diferente--> 
-                          <input  id="Cant${ordena.id}" type="text"  value= 0></input>
-                                                <button id ='btnSumar${ordena.id}' > + </button> 
-                      </div>
-                  </div>`;
+        <div class='box boxmia'  >
+        <img src='${ordena.image}' alt='' style='opacity:1;'>
+        <h2 class='title is-size-5'>${ordena.name}</h2>
+        <h3 class='subtitle is-size-6'>${ordena.description}​</h3>
+        <p> Precio por kg: ${ordena.precio}</p>
+        <div class='has-text-centered'>
+        <button class='button  ${ordena.id}' id = 'Addbtn'>  Agregar  </button>
+        </div>
+        <div class = 'has-text-centered ' >
+            <button id ='btnResta' class = '${ordena.id}'> - </button>
+            <!--Le asigno id unica, mezclo texto con $llave para que todos los inputs y todos los button tenga id diferente--> 
+            <input  id="Cant${ordena.id}" type="text"  value= 0></input>
+                                  <button id ='btnSumar' class = '${ordena.id}' > + </button> 
+        </div>
+    </div>`;
       document.getElementById("menu-Products").appendChild(contenedor)
     }
   }
   let updateBreadcrumb = document.getElementById('breadcrumb');
   updateBreadcrumb.innerHTML = `${nombreCategoria}`
+
+  filterLeft(data, nombreCategoria)
 }
 
 
@@ -148,9 +135,6 @@ function MenuCategoria() {
   });
 }
 
-// MenuCategoria();
-
-
 function menu_cart_dinamico() {
   validacionStorageCartDinamico();
 }
@@ -165,25 +149,22 @@ function validacionStorageCartDinamico() {
 function muestraCartDinamico(filtro) {
   for (const ordena of filtro) {
     let contenedor = document.createElement("div");
-    // contenedor.setAttribute(id,id);
     contenedor.setAttribute("class", "column is-3 mx-2 mb-1 elimina ");
-    // is-3 mx-2 mb-1 elimina
-    // let contenedor = document.getElementById("menu-Products")
     contenedor.innerHTML =
       `
-              <div class='box boxmia' >
+              <div class='box boxmia'  >
                   <img src='${ordena.image}' alt='' style='opacity:1;'>
                   <h2 class='title is-size-5'>${ordena.name}</h2>
                   <h3 class='subtitle is-size-6'>${ordena.description}​</h3>
                   <p> Precio por kg: ${ordena.precio}</p>
                   <div class='has-text-centered'>
-                  <button class='button btnadd${ordena.id}' id = 'Add${ordena.id}'>Agregar</button>
+                  <button class='button  ${ordena.id}' id = 'Addbtn'>  Agregar  </button>
                   </div>
                   <div class = 'has-text-centered ' >
-                      <button id ='btnResta${ordena.id}'> - </button>
+                      <button id ='btnResta' class = '${ordena.id}'> - </button>
                       <!--Le asigno id unica, mezclo texto con $llave para que todos los inputs y todos los button tenga id diferente--> 
                       <input  id="Cant${ordena.id}" type="text"  value= 0></input>
-                                            <button id ='btnSumar${ordena.id}' > + </button> 
+                                            <button id ='btnSumar' class = '${ordena.id}' > + </button> 
                   </div>
               </div>`;
     document.getElementById("menu-Products").appendChild(contenedor)
@@ -192,149 +173,103 @@ function muestraCartDinamico(filtro) {
 }
 
 
+/*
 
+  ==============================================
+|| Botones de suma resta y agregar en menu-cart ||  
+  ==============================================
 
-menu_cart_dinamico();
+*/
+function Logicabotones(data) 
+{
+  let delegProducts = document.querySelector('#menu-Products');
+  delegProducts.addEventListener('click', (e) => {
 
+    // buscar el id 
+    let buscaId = e.target.classList.value
 
+    switch (e.target.id) 
+    {
+      case 'btnSumar':
+        let sumatoria = document.getElementById(`Cant${buscaId}`)
+        sumatoria.value++
+        break;
+      case 'btnResta':
+        let sumatoriaresta = document.getElementById(`Cant${buscaId}`)
+        if (sumatoriaresta.value < 1) {
+          alert("no se pueden ingresar numero negativos")
+        } else {
+          sumatoriaresta.value--
+        }
+        break;
 
-// Botones de suma resta y agregar en menu-cart
-
-
-
-// Suma 
-function validacionStorageParaSumarCant() {
-  let IsStoraged = JSON.parse(localStorage.getItem("nuevolistado"));
-  let productAValidar = listaProductsfetch
-  IsStoraged == undefined ? sumaCantdeProd(productAValidar) : sumaCantdeProd(IsStoraged);
-}
-
-
-function sumaCantdeProd(filtro) {
-// console.log(filtro)
-  filtro.forEach(product => {
-
-    //Capturo el btn sumar id de cada elemento
-    let btnSumar = document.getElementById(`btnSumar${product.id}`)
-
-    btnSumar.addEventListener('click', (e) => {
-
-      //sumatoria es igual al input, que arranca el value = 0 
-      let sumatoria = document.getElementById(`Cant${product.id}`)
-      e.preventDefault();
-      return sumatoria.value++
-      // alert(e.target)
-    });
-  });
-}
-
-function suma_btn() {
-
-  validacionStorageParaSumarCant()
-
-}
-
-
-
-
-// suma_btn();
-
-
-
-
-
-
-// Resta
-
-function validacionStorageParaRestarCant() {
-  let IsStoraged = JSON.parse(localStorage.getItem("nuevolistado"));
-  let productAValidar = listaProductsfetch
-  IsStoraged == undefined ? restaCantdeProd(productAValidar) : restaCantdeProd(IsStoraged);
-}
-
-function restaCantdeProd(filtro) {
-
-  //muy bien el forEach, aca estás recorriendo todo tu array
-  filtro.forEach(product => {
-    //Capturo el btn sumar id de cada elemento
-    let btnSumar = document.getElementById(`btnResta${product.id}`)
-    //asigno evento a ese boton
-    btnSumar.addEventListener('click', (e) => {
-      //sumatoria es igual al input, que arranca el value = 0 
-      let sumatoria = document.getElementById(`Cant${product.id}`)
-      //me aseguro que funciona el evento (desp borrar)
-      console.log(sumatoria);
-      //no hace falta usar el sumaCant, le pongo ++ al .value y listo
-      sumatoria.value--;
-      // alert(e.target)
-    });
-  });
-}
-
-
-
-function resta_btn() {
-  validacionStorageParaRestarCant()
-}
-
-resta_btn();
-
-
-
-// Boton Agregar al carrito
-
-let carrit = [];
-
-function validacionStorageAddtoCArt() {
-  let IsStoraged = JSON.parse(localStorage.getItem("nuevolistado"));
-  let productAValidar = listaProductsfetch
-  IsStoraged === undefined ? muestraCarrito(IsStoraged) : muestraCarrito(productAValidar);
-}
-
-function addtocart() {
-  validacionStorageAddtoCArt()
-}
-
-function muestraCarrito(filtro) {
-
-
-  // recorriendo array
-  filtro.forEach(product => {
-    //Capturo el btn sumar id de cada elemento
-    let addtocart = document.getElementById(`Add${product.id}`)
-    //asigno evento a ese boton
-    addtocart.addEventListener('click', (e) => {
-      let addValue = document.getElementById(`Cant${product.id}`);
-      // console.log(`productid : ${product.id}  -----  carrito id = ${carrit.idProduct}`) 
-
-      let indiceCarrito = carrit.findIndex((el) => el.idProduct === product.id);
-      console.log(indiceCarrito)
-      if (indiceCarrito < 0) {
-        carrit.push(
+      case 'Addbtn':
+        let addValue = e.target.parentNode.parentNode.childNodes[11].childNodes[5].value
+        let iDProducttoAdd = e.target.classList[1];
+        let consultaIndiceData = data.findIndex((el) => el.id == iDProducttoAdd);
+        console.log('carrito tiene ' , carrit)
+        if (carrit == null) 
+        {
+          carrit = [];
+          carrit.push(  
+            {
+              idProduct: iDProducttoAdd,
+              value: addValue,
+              nombre: data[consultaIndiceData].name,
+              precioTotal: data[consultaIndiceData].precio * addValue,
+              description: data[consultaIndiceData].description,
+              precio: data[consultaIndiceData].precio,
+              image: data[consultaIndiceData].image
+            });
+          
+            JSONlistaCarrito = JSON.stringify(carrit);
+            localStorage.setItem("cartLS", JSONlistaCarrito)
+              
+        }  else 
+        { 
+          alert("producto exsite en el carrito")
+          let indiceCarrito = carrit.findIndex((el) => el.idProduct === iDProducttoAdd); 
+          console.log("index de carrito    ",indiceCarrito)
+          if (indiceCarrito < 0) 
           {
-            idProduct: product.id,
-            value: addValue.value,
-            nombre: product.name,
-            precioTotal: product.precio * addValue.value,
-            description: product.description,
-            precio: product.precio,
-            image: product.image
-          });
+            carrit.push(
+              {
+                idProduct: iDProducttoAdd,
+                value: addValue,
+                nombre: data[consultaIndiceData].name,
+                precioTotal: data[consultaIndiceData].precio * addValue,
+                description: data[consultaIndiceData].description,
+                precio: data[consultaIndiceData].precio,
+                image: data[consultaIndiceData].image
+              });
+            JSONlistaCarrito = JSON.stringify(carrit);
+            localStorage.setItem("cartLS", JSONlistaCarrito)
+          } else {
+            let consultaIdenCarrito = carrit.findIndex((el) => el.idProduct == iDProducttoAdd);
+            console.log("consultaIdenCarrito", consultaIdenCarrito)
+            let helpvalue = parseInt(carrit[consultaIdenCarrito].value )
+            console.log("helpvalue", helpvalue)
+            console.log("addvalue", addValue)
+            helpvalue  = helpvalue + parseInt( addValue) 
+            carrit[consultaIdenCarrito].value = helpvalue
+            carrit[consultaIdenCarrito].precioTotal = carrit[consultaIdenCarrito].value * carrit[consultaIdenCarrito].precio
+            JSONlistaCarrito = JSON.stringify(carrit);
+            JSONlistaCarrito[consultaIdenCarrito].value = helpvalue
 
-      } else {
-
-        carrit[product.id].value = addValue.value;
-        carrit[product.id].precioTotal = carrit[product.id].value * carrit[product.id].precio
-      }
-    });
-  });
-
+            localStorage.setItem("cartLS", JSONlistaCarrito)
+          }
+        }
+        break;
+    }
+  })
 
 }
 
 
-addtocart();
-
+////////////////////////////////////////////////////////////
+// Funciones del carrito
+//
+/////////////////////////////////////////////////////////////
 
 
 
@@ -348,6 +283,7 @@ const modal = document.querySelector('.modal');
 const closebtnModal = document.getElementById('closebtnModal');
 
 
+// Falta hacer arreglo delegacion de eventos
 modalCarrito();
 
 function modalCarrito() {
@@ -371,57 +307,14 @@ function modalCarrito() {
 }
 
 
-// botones del carrito sumar , agregar , eliminar y finalizar compra
-
-
-function sumaModal() {
-  carrit.forEach(product => {
-    let btnSumarCarrito = document.getElementById(`sumaDelCarrito${product.idProduct}`)
-    btnSumarCarrito.addEventListener('click', (e) => {
-      let sumatoriaencarrito = document.getElementById(`valorCarrito${product.idProduct}`)
-      e.preventDefault();
-      console.log(sumatoriaencarrito)
-      product.value++
-      product.precioTotal = product.value * product.precio;
-      let actualizaPrecioTotal = document.getElementById(`Precio-total${product.idProduct}`);
-      actualizaPrecioTotal.innerHTML = ` <strong> Precio total: ${product.precioTotal} </strong> `;
-      return sumatoriaencarrito.value++
-    });
-  });
-}
-
-function restaModal() {
-  carrit.forEach(product => {
-    let btnSumarCarrito = document.getElementById(`restaDelCarrito${product.idProduct}`)
-    btnSumarCarrito.addEventListener('click', (e) => {
-      let sumatoriaencarrito = document.getElementById(`valorCarrito${product.idProduct}`)
-      e.preventDefault();
-      console.log(sumatoriaencarrito)
-      product.value--
-      product.precioTotal = product.value * product.precio;
-
-      return sumatoriaencarrito.value--
-    });
-  });
-}
-
-function EliminaListadeCarrito() {
-  carrit.forEach(product => {
-    let btnEliminaCarrito = document.getElementById(`EliminardelCarrito${product.idProduct}`)
-    btnEliminaCarrito.addEventListener('click', (e) => {
-      carrit.splice(product.idProduct, 1)
-      btnEliminaCarrito.innerHTML = '';
-      logicaMostrarCarrito();
-    });
-  });
-}
+let carrit = JSON.parse(localStorage.getItem("cartLS"));
 
 
 function logicaMostrarCarrito() {
-
   let limpiaCarr = document.getElementById('Carrito-Muestra');
   limpiaCarr.innerHTML = '';
-  carrit.forEach(itemCarrito => {
+  let IsStoraged = JSON.parse(localStorage.getItem("cartLS"));
+  IsStoraged.forEach(itemCarrito => {
     let carritoMuestra = document.createElement("div");
     carritoMuestra.innerHTML = `<article class="media">
     <figure class="media-left">
@@ -463,93 +356,74 @@ function logicaMostrarCarrito() {
 
   })
 
-  sumaModal();
-  restaModal();
-  EliminaListadeCarrito();
 }
+
+
+
+
+
+
+
+
+
+
 
 // Filtros laterales
+function filterLeft(data, nombreCategoria) {
 
 
+  if (nombreCategoria == '') {
+    nombreCategoria = 'Res'
+  }
 
-function validacionStorageMenorPrecio() {
-  let IsStoraged = JSON.parse(localStorage.getItem("nuevolistado"));
-  let productAValidar = listaProductsfetch
-  IsStoraged == undefined ? sortMenorPrecio(productAValidar) : sortMenorPrecio(IsStoraged);
-}
 
-function menorprecio() {
-  validacionStorageMenorPrecio()
-}
-function sortMenorPrecio(option) {
-  //Ordena por menor precio
-  let boton = document.getElementById("MenorPrecio")
-  boton.addEventListener("click", (e) => {
-    e.preventDefault();
+  let parentFilterLeft = document.getElementById('seccionProducts')
+  parentFilterLeft.addEventListener('click', (e) => {
+    console.log(e.target.id)
+    idFilter = e.target.id
     let element = document.getElementById("menu-Products");
-    while (element.firstChild) {
-      element.removeChild(element.firstChild);
+    switch (idFilter) {
+      case 'MenorPrecio':
+        while (element.firstChild) {
+          element.removeChild(element.firstChild);
+        }
+        data.sort((a, b) => {
+          if (a.precio > b.precio) {
+            return 1
+          }
+          if (a.precio < b.precio) {
+            return -1;
+          }
+          return 0
+        })
+        let limpiaMenorPrecio = document.getElementById('menu-Products')
+        limpiaMenorPrecio.innerHTML = '';
+        filtroPorCategoria(data, nombreCategoria);
+        break
+        ;
+
+      case 'MayorPrecio':
+
+        while (element.firstChild) {
+          element.removeChild(element.firstChild);
+        }
+        data.sort((a, b) => {
+          if (a.precio < b.precio) {
+            return 1
+          }
+          if (a.precio > b.precio) {
+            return -1;
+          }
+          return 0
+        })
+        let limpiaMayorPrecio = document.getElementById('menu-Products')
+        limpiaMayorPrecio.innerHTML = '';
+        filtroPorCategoria(data, nombreCategoria);
+        break
+        ;
     }
-    option.sort((a, b) => {
-      if (a.precio > b.precio) {
-        return 1
-      }
-      if (a.precio < b.precio) {
-        return -1;
-      }
-      return 0
-    })
-    let eiliminarMenorPrecio = document.getElementById('menu-Products')
-    eiliminarMenorPrecio.innerHTML = '';
-    muestraCartDinamico(option);
-    suma_btn();
-    resta_btn();
-    addtocart();
+
   })
+
 }
 
-menorprecio();
-
-
-// mayor precio
-
-function validacionStorageMayorPrecio() {
-  let IsStoraged = JSON.parse(localStorage.getItem("nuevolistado"));
-  let productAValidar = listaProductsfetch
-  IsStoraged == undefined ? sortMayorPrecio(productAValidar) : sortMayorPrecio(IsStoraged);
-}
-
-function mayorprecio() {
-  validacionStorageMayorPrecio()
-}
-function sortMayorPrecio(option) {
-  //Ordena por menor precio
-  let boton = document.getElementById("MayorPrecio")
-  boton.addEventListener("click", (e) => {
-    e.preventDefault();
-    let element = document.getElementById("menu-Products");
-    while (element.firstChild) {
-      element.removeChild(element.firstChild);
-    }
-    option.sort((a, b) => {
-      if (a.precio < b.precio) {
-        return 1
-      }
-      if (a.precio > b.precio) {
-        return -1;
-      }
-      return 0
-    })
-    let eiliminarMenorPrecio = document.getElementById('menu-Products')
-    eiliminarMenorPrecio.innerHTML = '';
-    muestraCartDinamico(option);
-    suma_btn();
-    resta_btn();
-    addtocart();
-  })
-}
-
-menorprecio();
-mayorprecio();
-
-// filtro por categoria de productos
